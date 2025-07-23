@@ -1,0 +1,1 @@
+// this is the admin page for the Era Hotel application
