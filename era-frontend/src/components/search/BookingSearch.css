@@ -1,0 +1,133 @@
+/* BookingSearch main container */
+.booking-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Wrapper bar that holds date + search button */
+.booking-bar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1.5rem;
+  gap: 1.5rem;             /* ⬅️ increase spacing between input and button */
+  height: 56px;
+  min-width: 360px;        /* ⬅️ wider bar */
+}
+
+/* Label above the date input */
+.date-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* The word "Dates" shown permanently */
+.date-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-left: 0.2rem;
+}
+
+/* Calendar icon + DatePicker input wrapper */
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.input-with-icon:hover {
+  box-shadow: 0 0 0 2px rgba(0, 113, 243, 0.2);
+}
+
+/* React DatePicker input field */
+.date-picker-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  font-weight: 500;
+  width: 180px;
+  cursor: pointer;
+}
+
+.date-picker-input::placeholder {
+  color: #999;
+}
+
+/* Calendar icon style */
+.calendar-icon {
+  font-size: 1.1rem;
+  color: #2f2f2f;
+}
+
+/* Search button */
+.booking-bar button {
+  background-color: #0071f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  height: 40px;               /* 🟰 Set to match input height */
+  padding: 0 1.25rem;         /* Horizontal padding only */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 2px;            /* 🛠️ Slight offset to perfectly center */
+}
+
+
+.booking-bar button:hover {
+  background-color: #005ad1;
+}
+
+/* Hero section with background image */
+.hero-section {
+  background-image: url('/your/image/path.jpg'); /* Keep your actual path here */
+  background-size: cover;
+  background-position: center;
+  height: 500px; /* ⬅️ Increase this to fully show the pool image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+/* Optional: darken image or blur for readability */
+.hero-overlay {
+  background-color: rgba(255, 255, 255, 0.85);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading inside hero */
+.hero-overlay h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-overlay p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
