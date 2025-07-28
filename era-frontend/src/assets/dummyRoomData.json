@@ -1,0 +1,76 @@
+[
+    {
+    "roomNumber": 306,
+    "roomType": "Single",
+    "nightlyPrice": 160.99,
+    "isAvailable": false,
+    "maxOccupancy": 4,
+    "roomDescription": "Spacious single room with city view, queen beds, and modern amenities.",
+    "amenities": [
+        "WiFi",
+        "Air Conditioning"
+    ],
+    "reservations": [
+        "RES31231"
+    ]
+    },
+    {
+    "roomNumber": 307,
+    "roomType": "Double",
+    "nightlyPrice": 200.00,
+    "isAvailable": true,
+    "maxOccupancy": 4,
+    "roomDescription": "Comfortable double room with two queen beds, perfect for families.",
+    "amenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Mini Fridge"
+    ],
+    "reservations": []
+    },
+    {
+    "roomNumber": 308,
+    "roomType": "Suite",
+    "nightlyPrice": 350.00,
+    "isAvailable": true,
+    "maxOccupancy": 6,
+    "roomDescription": "Luxurious suite with a separate living area and stunning views.",
+    "amenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Mini Fridge",
+        "Coffee Maker"
+    ],
+    "reservations": []
+    },
+    {
+    "roomNumber": 309,
+    "roomType": "Single",
+    "nightlyPrice": 180.00,
+    "isAvailable": true,
+    "maxOccupancy": 2,
+    "roomDescription": "Cozy single room with a king bed and modern decor.",
+    "amenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Coffee Maker"
+    ],
+    "reservations": []
+    },
+    {
+    "roomNumber": 310,
+    "roomType": "Double",
+    "nightlyPrice": 220.00,
+    "isAvailable": false,
+    "maxOccupancy": 4,
+    "roomDescription": "Spacious double room with two queen beds and a city view.",
+    "amenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Mini Fridge"
+    ],
+    "reservations": [
+        "RES31232"
+    ]
+    }
+]
