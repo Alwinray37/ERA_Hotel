@@ -32,3 +32,13 @@ public class Room {
     // - @AllArgsConstructor: Generates a constructor with all fields as parameters
 }
 
+// Room class: Defines the Room entity for our database, using lombok for boilerplate code for getters, setters, and constructors.
+// Annotations:
+    // @Entity: Marks this class as a JPA entity.
+    // @Table(name = "rooms"): Specifies the database table name.
+    // @Id and @GeneratedValue: Indicate the primary key and its auto-generation strategy.
+    // Lombok annotations (@Data, @NoArgsConstructor, @AllArgsConstructor): Automatically generate getters, setters, constructors, and utility methods, reducing boilerplate code.
+
+// RoomRepository connect with this entity to perform CRUD operations on the Room table in the database.
+// RoomService and its implementation (RoomServiceImpl) use this entity to manage room data, including creating, retrieving, updating, and deleting rooms.
+// RoomDto class is used to transfer room data between layers 
