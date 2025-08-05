@@ -1,10 +1,10 @@
 [
     {
-    "roomNumber": 306,
+    "roomNumber": 101,
     "roomType": "Single",
-    "nightlyPrice": 160.99,
+    "nightlyPrice": 110.99,
     "isAvailable": false,
-    "maxOccupancy": 4,
+    "maxOccupancy": 2,
     "roomDescription": "Spacious single room with city view, queen beds, and modern amenities.",
     "amenities": [
         "WiFi",
@@ -15,9 +15,9 @@
     ]
     },
     {
-    "roomNumber": 307,
+    "roomNumber": 202,
     "roomType": "Double",
-    "nightlyPrice": 200.00,
+    "nightlyPrice": 220.00,
     "isAvailable": true,
     "maxOccupancy": 4,
     "roomDescription": "Comfortable double room with two queen beds, perfect for families.",
@@ -29,7 +29,7 @@
     "reservations": []
     },
     {
-    "roomNumber": 308,
+    "roomNumber": 303,
     "roomType": "Suite",
     "nightlyPrice": 350.00,
     "isAvailable": true,
