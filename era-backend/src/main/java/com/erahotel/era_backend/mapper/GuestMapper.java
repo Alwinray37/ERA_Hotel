@@ -7,11 +7,11 @@ public class GuestMapper {
 
     public static GuestDto maptoGuestDto(Guest guest){
         return new GuestDto(
-                guest.getGuestId()
-                guest.getFirst_name()
-                guest.getLast_name()
-                guest.getEmail()
-                guest.getPhone()
+                guest.getGuestId(),
+                guest.getFirst_name(),
+                guest.getLast_name(),
+                guest.getEmail(),
+                guest.getPhone(),
                 guest.getGuest_reservations()
 
         );
