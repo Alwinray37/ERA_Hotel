@@ -12,24 +12,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "guest")
+@Table(name = "guests")
 
 public class Guest{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long guestId;
 
-    private int guestId;
-    @Column(name = "first_name")
     private String first_name;
-
-    @Column(name = "last_name")
     private String last_name;
-
-    @Column(name = "email_id", nullable = false, unique = true)
     private String email;
-
-    @Column(name = "phone_id", nullable = false, unique = true)
     private String phone;
-    private List<Reservation> guest_reservations; //should be tracking all reservations of the room
+    private List<String> guest_reservations; //should be tracking all reservations of the room
+
+    @ElementCollection
+    public List<String> getGuestReservations(){return List.of();}
 }

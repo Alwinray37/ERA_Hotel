@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/navbar/Navbar';
 import Hero from './components/hero/Hero';
 import BookingSearch from './components/search/BookingSearch';
 import Footer from './components/footer/footer';
 import './App.css';
 import ViewRooms from './components/viewRooms';
-import dummyRooms from './assets/dummyRoomData.json';
 
 function App() {
-	const [filteredRooms, setFilteredRooms] = useState([]); // Start with no rooms
+	// get rooms from database
+	const [rooms, setRooms] = useState([]);
+	// initialize state for filtered rooms and search status
+	const [filteredRooms, setFilteredRooms] = useState([]); 
 	const [searchMade, setSearchMade] = useState(false);
- 
+
+	// axios
+	useEffect(() => {
+		listRooms().then(rooms => {
+			setFilteredRooms(rooms);
+		}).catch(error => {
+			console.error('Error fetching rooms:', error);
+		});
+	}, []);
+
 
   	const handleSearch = (dateRange) => {
     // search date range selected by user
@@ -19,7 +30,7 @@ function App() {
     if (!searchStart || !searchEnd) return;
 
     // filter logic to find available rooms
-    const availableRooms = dummyRooms.filter(room => {
+    const availableRooms = rooms.filter(room => {
 		// if no reservations, reservations is an empty array, then room is available
 		if (!room.reservations || room.reservations.length === 0) return true;
 

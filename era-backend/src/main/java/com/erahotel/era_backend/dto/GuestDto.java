@@ -1,18 +1,18 @@
 package com.erahotel.era_backend.dto;
 
-import lombok.AllArgsConstructor;
+import com.erahotel.era_backend.entity.Reservation;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class GuestDto {
-    private Long id;
+    private Long guestId;
     private String firstName;
     private String lastName;
     private String email;

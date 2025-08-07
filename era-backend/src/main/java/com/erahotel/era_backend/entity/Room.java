@@ -21,8 +21,19 @@ public class Room {
     private double nightlyPrice;
     private int maxOccupancy;
     private String roomDescription;
+
+    @ElementCollection
     private List<String> roomAmenities;
+    @ElementCollection
     private List<String> roomReservations; // tracks all reservations for this room
+
+    public List<String> getAmenities() {
+        return List.of();
+    }
+
+    public List<String> getReservations() {
+        return List.of();
+    }
 
     // Lombok is used here to automatically generate boilerplate code like getters,
     // setters,

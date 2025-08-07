@@ -16,9 +16,8 @@ public class RoomDto {
     private int roomNumber;
     private RoomType roomType;
     private double nightlyPrice;
-    private boolean isAvailable;
     private int maxOccupancy;
     private String roomDescription;
-    private List<String> amenities;
-    private List<String> reservations;
+    private List<String> roomAmenities;
+    private List<String> roomReservations;
 }
