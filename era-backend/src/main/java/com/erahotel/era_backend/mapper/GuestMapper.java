@@ -17,7 +17,7 @@ public class GuestMapper {
         );
     }
     public static Guest mapToGuest(GuestDto guestDto){
-        return new guest(
+        return new Guest(
                 guestDto.getId(),
                 guestDto.getFirstName(),
                 guestDto.getLastName(),
