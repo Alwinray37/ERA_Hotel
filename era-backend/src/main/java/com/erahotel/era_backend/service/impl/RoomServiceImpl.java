@@ -50,11 +50,10 @@ public class RoomServiceImpl implements RoomService {
         room.setRoomNumber(updatedRoom.getRoomNumber());
         room.setRoomType(updatedRoom.getRoomType());
         room.setNightlyPrice(updatedRoom.getNightlyPrice());
-        room.setAvailable(updatedRoom.isAvailable());
         room.setMaxOccupancy(updatedRoom.getMaxOccupancy());
         room.setRoomDescription(updatedRoom.getRoomDescription());
-        room.setAmenities(updatedRoom.getAmenities());
-        room.setReservations(updatedRoom.getReservations());
+        room.setRoomAmenities(updatedRoom.getRoomAmenities());
+        room.setRoomReservations(updatedRoom.getRoomReservations());
 
         Room updatedRoomObj = roomRepository.save(room);
         return RoomMapper.mapToRoomDto(updatedRoomObj);

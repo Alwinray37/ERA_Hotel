@@ -1,7 +1,8 @@
 package com.erahotel.era_backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.erahotel.era_backend.entity.Guest;
+import com.erahotel.era_backend.entity.Room;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,14 +13,22 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "reservation")
+@Table(name = "reservations")
 
 public class Reservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reservationId;
-    public Guest guest;
-    public Room room;
-    public Date checkin;
-    public Date checkout;
-    public String status;
+
+    @ManyToOne
+    @JoinColumn(name = "guest_id")
+    private Guest guest;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
+    private Date checkin;
+    private Date checkout;
+    private String status;
 
 }

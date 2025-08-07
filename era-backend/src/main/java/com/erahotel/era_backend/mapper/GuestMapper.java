@@ -5,20 +5,19 @@ import com.erahotel.era_backend.entity.Guest;
 
 public class GuestMapper {
 
-    public static GuestDto maptoGuestDto(Guest guest){
+    public static GuestDto mapToGuestDto(Guest guest){
         return new GuestDto(
-                guest.getGuestId()
-                guest.getFirst_name()
-                guest.getLast_name()
-                guest.getEmail()
-                guest.getPhone()
+                guest.getGuestId(),
+                guest.getFirst_name(),
+                guest.getFirst_name(),
+                guest.getEmail(),
+                guest.getPhone(),
                 guest.getGuest_reservations()
-
         );
     }
     public static Guest mapToGuest(GuestDto guestDto){
-        return new guest(
-                guestDto.getId(),
+        return new Guest(
+                guestDto.getGuestId(),
                 guestDto.getFirstName(),
                 guestDto.getLastName(),
                 guestDto.getEmail(),

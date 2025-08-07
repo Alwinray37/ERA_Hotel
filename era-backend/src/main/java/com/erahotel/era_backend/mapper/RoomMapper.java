@@ -11,7 +11,6 @@ public class RoomMapper {
             room.getRoomNumber(),
             room.getRoomType(),
             room.getNightlyPrice(),
-            room.isAvailable(),
             room.getMaxOccupancy(),
             room.getRoomDescription(),
             room.getAmenities(),
@@ -25,11 +24,10 @@ public class RoomMapper {
                 roomDto.getRoomNumber(),
                 roomDto.getRoomType(),
                 roomDto.getNightlyPrice(),
-                roomDto.isAvailable(),
                 roomDto.getMaxOccupancy(),
                 roomDto.getRoomDescription(),
-                roomDto.getAmenities(),
-                roomDto.getReservations()
+                roomDto.getRoomAmenities(),
+                roomDto.getRoomReservations()
         );
     }
 }
