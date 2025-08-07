@@ -86,3 +86,22 @@
   line-height: 1.7;
   color: #555;
 }
+
+.room-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center ;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  background-color: none;
+  width: 90%;
+}
+
+.room-card{
+  background-color: whitesmoke;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 80%;
+}
