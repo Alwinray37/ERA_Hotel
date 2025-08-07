@@ -3,39 +3,41 @@
     "roomNumber": 101,
     "roomType": "Single",
     "nightlyPrice": 110.99,
-    "isAvailable": false,
     "maxOccupancy": 2,
     "roomDescription": "Spacious single room with city view, queen beds, and modern amenities.",
-    "amenities": [
+    "roomAmenities": [
         "WiFi",
         "Air Conditioning"
     ],
+    "isAvailable": true,
     "reservations": [
-        "RES31231"
+        { "start": "2025-08-10", "end": "2025-08-12", "reservationId": "RES12345" },
+        { "start": "2025-08-15", "end": "2025-08-18", "reservationId": "RES12346" }
     ]
     },
     {
     "roomNumber": 202,
     "roomType": "Double",
     "nightlyPrice": 220.00,
-    "isAvailable": true,
     "maxOccupancy": 4,
     "roomDescription": "Comfortable double room with two queen beds, perfect for families.",
-    "amenities": [
+    "roomAmenities": [
         "WiFi",
         "Air Conditioning",
         "Mini Fridge"
     ],
-    "reservations": []
+    "reservations": [
+        { "start": "2025-08-10", "end": "2025-08-12", "reservationId": "RES12348" },
+        { "start": "2025-08-15", "end": "2025-08-18", "reservationId": "RES12343" }
+    ]
     },
     {
     "roomNumber": 303,
     "roomType": "Suite",
     "nightlyPrice": 350.00,
-    "isAvailable": true,
     "maxOccupancy": 6,
     "roomDescription": "Luxurious suite with a separate living area and stunning views.",
-    "amenities": [
+    "roomAmenities": [
         "WiFi",
         "Air Conditioning",
         "Mini Fridge",
@@ -47,10 +49,9 @@
     "roomNumber": 309,
     "roomType": "Single",
     "nightlyPrice": 180.00,
-    "isAvailable": true,
     "maxOccupancy": 2,
     "roomDescription": "Cozy single room with a king bed and modern decor.",
-    "amenities": [
+    "roomAmenities": [
         "WiFi",
         "Air Conditioning",
         "Coffee Maker"
@@ -64,13 +65,13 @@
     "isAvailable": false,
     "maxOccupancy": 4,
     "roomDescription": "Spacious double room with two queen beds and a city view.",
-    "amenities": [
+    "roomAmenities": [
         "WiFi",
         "Air Conditioning",
         "Mini Fridge"
     ],
     "reservations": [
-        "RES31232"
+        { "start": "2025-08-20", "end": "2025-08-25", "reservationId": "RES12349" }
     ]
     }
 ]

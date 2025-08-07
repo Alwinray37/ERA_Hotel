@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useState } from 'react'
 import { format } from 'date-fns'
 
-export default function BookingSearch() {
+export default function BookingSearch({ onSearch }) {
   const [dateRange, setDateRange] = useState([null, null])
   const [startDate, endDate] = dateRange
 
@@ -16,6 +16,11 @@ export default function BookingSearch() {
       return format(startDate, 'MMM d')
     }
     return ''
+  }
+
+  const handleSearchClick = () => {
+    // Call the parent's onSearch with the selected date range
+    onSearch(dateRange)
   }
 
   return (
@@ -45,7 +50,7 @@ export default function BookingSearch() {
                 />
               </div>
             </div>
-            <button>Search</button>
+            <button onClick={handleSearchClick}>Search</button>
           </div>
         </div>
       </section>
