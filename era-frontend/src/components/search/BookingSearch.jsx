@@ -5,25 +5,29 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useState } from 'react'
 import { format } from 'date-fns'
 
-export default function BookingSearch({ onSearch }) {
-  const [dateRange, setDateRange] = useState([null, null])
-  const [startDate, endDate] = dateRange
+export default function BookingSearch({ setSearchMade }) {
+	const [dateRange, setDateRange] = useState([null, null]);
+	const [startDate, endDate] = dateRange;
 
-  const getFormattedRange = () => {
-    if (startDate && endDate) {
-      return `${format(startDate, 'MMM d')} – ${format(endDate, 'MMM d')}`
-    } else if (startDate) {
-      return format(startDate, 'MMM d')
-    }
-    return ''
-  }
+	const getFormattedRange = () => {
+		if (startDate && endDate) {
+			return `${format(startDate, 'MMM d')} – ${format(endDate, 'MMM d')}`
+		} else if (startDate) {
+			return format(startDate, 'MMM d')
+		}
+		return ''
+	}
 
-  const handleSearchClick = () => {
-    // Call the parent's onSearch with the selected date range
-    onSearch(dateRange)
-  }
+	const handleSearchClick = (searchStart, searchEnd) => {
+		if(!searchStart || !searchEnd){
+			return;
+		}
+		// debug log
+		console.log('Search button clicked from BookingSearch', dateRange)
+		setSearchMade(true);
+	}
 
-  return (
+  	return (
     <>
       {/* Hero Section with background image */}
       <section className="hero-section">
@@ -50,7 +54,7 @@ export default function BookingSearch({ onSearch }) {
                 />
               </div>
             </div>
-            <button onClick={handleSearchClick}>Search</button>
+            <button onClick={() => handleSearchClick(startDate, endDate)}>Search</button>
           </div>
         </div>
       </section>
