@@ -3,6 +3,7 @@ package com.erahotel.era_backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -15,25 +16,13 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long roomId;
-    private int roomNumber;
-    private RoomType roomType;
-    private double nightlyPrice;
-    private int maxOccupancy;
-    private String roomDescription;
+    private Long roomId;
+    private String roomNumber;
+    private String description;
+    private BigDecimal price;
 
-    @ElementCollection
-    private List<String> roomAmenities;
-    @ElementCollection
-    private List<String> roomReservations; // tracks all reservations for this room
-
-    public List<String> getAmenities() {
-        return List.of();
-    }
-
-    public List<String> getReservations() {
-        return List.of();
-    }
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> roomReservations; // tracks all reservations for this room
 
     // Lombok is used here to automatically generate boilerplate code like getters,
     // setters,

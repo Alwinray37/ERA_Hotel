@@ -1,6 +1,7 @@
 package com.erahotel.era_backend.service.impl;
 
 import com.erahotel.era_backend.dto.RoomDto;
+import com.erahotel.era_backend.entity.Reservation;
 import com.erahotel.era_backend.entity.Room;
 import com.erahotel.era_backend.exception.ResourceNotFoundException;
 import com.erahotel.era_backend.mapper.RoomMapper;
@@ -22,6 +23,11 @@ public class RoomServiceImpl implements RoomService {
     public RoomDto createRoom(RoomDto roomDto) {
 
         Room room = RoomMapper.mapToRoom(roomDto);
+        if (room.getRoomReservations() != null) {
+            for (Reservation reservation : room.getRoomReservations()) {
+                reservation.setRoom(room);
+            }
+        }
         Room savedRoom =  roomRepository.save(room);
 
         return RoomMapper.mapToRoomDto(savedRoom);
@@ -48,12 +54,17 @@ public class RoomServiceImpl implements RoomService {
         );
 
         room.setRoomNumber(updatedRoom.getRoomNumber());
-        room.setRoomType(updatedRoom.getRoomType());
-        room.setNightlyPrice(updatedRoom.getNightlyPrice());
-        room.setMaxOccupancy(updatedRoom.getMaxOccupancy());
-        room.setRoomDescription(updatedRoom.getRoomDescription());
-        room.setRoomAmenities(updatedRoom.getRoomAmenities());
-        room.setRoomReservations(updatedRoom.getRoomReservations());
+        room.setDescription(updatedRoom.getDescription());
+        room.setPrice(updatedRoom.getPrice());
+
+        // Set roomReservations with back-references fixed
+        List<Reservation> reservations = updatedRoom.getRoomReservations();
+        if (reservations != null) {
+            for (Reservation reservation : reservations) {
+                reservation.setRoom(room);  // important!
+            }
+            room.setRoomReservations(reservations);
+        }
 
         Room updatedRoomObj = roomRepository.save(room);
         return RoomMapper.mapToRoomDto(updatedRoomObj);

@@ -1,7 +1,9 @@
 package com.erahotel.era_backend.dto;
 
+import com.erahotel.era_backend.entity.Reservation;
 import com.erahotel.era_backend.entity.RoomType;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import lombok.*;
@@ -12,12 +14,9 @@ import lombok.*;
 
 public class RoomDto {
 
-    private long roomId;
-    private int roomNumber;
-    private RoomType roomType;
-    private double nightlyPrice;
-    private int maxOccupancy;
-    private String roomDescription;
-    private List<String> roomAmenities;
-    private List<String> roomReservations;
+    private Long roomId;
+    private String roomNumber;
+    private String description;
+    private BigDecimal price;
+    private List<Reservation> roomReservations;
 }

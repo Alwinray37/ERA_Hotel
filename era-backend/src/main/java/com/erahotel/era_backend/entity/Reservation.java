@@ -2,6 +2,7 @@ package com.erahotel.era_backend.entity;
 
 import com.erahotel.era_backend.entity.Guest;
 import com.erahotel.era_backend.entity.Room;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ import java.util.Date;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reservationId;
+    private Long reservationId;
 
     @ManyToOne
     @JoinColumn(name = "guest_id")
@@ -26,9 +27,10 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
+    @JsonIgnore
     private Room room;
-    private Date checkin;
-    private Date checkout;
-    private String status;
+    private Date startDate;
+    private Date endDate;
+    private String status; // Confirmed, Cancelled
 
 }

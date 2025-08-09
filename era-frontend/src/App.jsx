@@ -5,6 +5,7 @@ import BookingSearch from './components/search/BookingSearch';
 import Footer from './components/footer/footer';
 import './App.css';
 import ViewRooms from './components/viewRooms';
+import { listRooms } from './service/RoomService';
 
 function App() {
 	// get rooms from database
@@ -16,7 +17,7 @@ function App() {
 	// axios
 	useEffect(() => {
 		listRooms().then(rooms => {
-			setFilteredRooms(rooms);
+			setRooms(rooms);
 		}).catch(error => {
 			console.error('Error fetching rooms:', error);
 		});

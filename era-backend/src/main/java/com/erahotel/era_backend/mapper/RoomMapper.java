@@ -9,12 +9,9 @@ public class RoomMapper {
         return new RoomDto(
             room.getRoomId(),
             room.getRoomNumber(),
-            room.getRoomType(),
-            room.getNightlyPrice(),
-            room.getMaxOccupancy(),
-            room.getRoomDescription(),
-            room.getAmenities(),
-            room.getReservations()
+            room.getDescription(),
+            room.getPrice(),
+            room.getRoomReservations()
         );
     }
 
@@ -22,11 +19,8 @@ public class RoomMapper {
         return new Room(
                 roomDto.getRoomId(),
                 roomDto.getRoomNumber(),
-                roomDto.getRoomType(),
-                roomDto.getNightlyPrice(),
-                roomDto.getMaxOccupancy(),
-                roomDto.getRoomDescription(),
-                roomDto.getRoomAmenities(),
+                roomDto.getDescription(),
+                roomDto.getPrice(),
                 roomDto.getRoomReservations()
         );
     }

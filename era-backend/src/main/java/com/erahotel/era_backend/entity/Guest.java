@@ -1,31 +1,28 @@
 package com.erahotel.era_backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "guests")
-
 public class Guest{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long guestId;
+    // primary key for the guest entity, uses auto-increment strategy
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long guestId;
 
-    private String first_name;
-    private String last_name;
+    private String name; // add validation
     private String email;
     private String phone;
-    private List<String> guest_reservations; //should be tracking all reservations of the room
 
-    @ElementCollection
-    public List<String> getGuestReservations(){return List.of();}
+    // maps the one-to-many relationships with reservations
+    // mappedBy = "guest" indicates the Reservation entity owns the relationship
+    // cascade = CascadeType.All means all operations (persist, merge, remove..) are cascaded to reservations
+    // orphanRemoval = true means if a reservation is removed from this list, it will be deleted from the database.
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> guestReservations; // tracks all reservations for this guest.
 }

@@ -8,21 +8,19 @@ public class GuestMapper {
     public static GuestDto mapToGuestDto(Guest guest){
         return new GuestDto(
                 guest.getGuestId(),
-                guest.getFirst_name(),
-                guest.getFirst_name(),
+                guest.getName(),
                 guest.getEmail(),
                 guest.getPhone(),
-                guest.getGuest_reservations()
+                guest.getGuestReservations()
         );
     }
     public static Guest mapToGuest(GuestDto guestDto){
         return new Guest(
                 guestDto.getGuestId(),
-                guestDto.getFirstName(),
-                guestDto.getLastName(),
+                guestDto.getName(),
                 guestDto.getEmail(),
                 guestDto.getPhone(),
-                guestDto.getReservations()
+                guestDto.getGuestReservations()
         );
     }
 }
