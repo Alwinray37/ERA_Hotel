@@ -14,7 +14,7 @@ function App() {
 	const [filteredRooms, setFilteredRooms] = useState([]); 
 	const [searchMade, setSearchMade] = useState(false);
 
-	// axios
+	// axios, retrieving rooms from backend
 	useEffect(() => {
 		listRooms().then(rooms => {
 			setRooms(rooms);
