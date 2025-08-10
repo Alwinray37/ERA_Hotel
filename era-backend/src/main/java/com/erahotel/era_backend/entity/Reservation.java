@@ -1,36 +1,39 @@
 package com.erahotel.era_backend.entity;
 
-import com.erahotel.era_backend.entity.Guest;
-import com.erahotel.era_backend.entity.Room;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
-import java.util.Date;
-
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "reservations")
-
+@Table(name = "reservation")
 public class Reservation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id")
     private Guest guest;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
-    @JsonIgnore
     private Room room;
-    private Date startDate;
-    private Date endDate;
-    private String status; // Confirmed, Cancelled
 
+    @Column(nullable = false)
+    private LocalDate checkIn;
+
+    @Column(nullable = false)
+    private LocalDate checkOut;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false)
+    private BigDecimal totalAmount;
 }
