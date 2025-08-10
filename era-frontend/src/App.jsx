@@ -5,12 +5,14 @@ import Footer from './components/footer/footer';
 import './App.css';
 import ViewRooms from './components/viewRooms';
 import { listRooms } from './service/RoomService';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import BookingForm from './components/BookingForm';
 
-function App() {
+function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
     const [availableRooms, setAvailableRooms] = useState([]);
-    const [searchStart, setSearchStart] = useState(null);
-    const [searchEnd, setSearchEnd] = useState(null);
+
+    const location = useLocation();
 
     // retreive all rooms from the server when the component mounts
     useEffect(() => {
@@ -24,11 +26,11 @@ function App() {
             });
     }, []);
 
-
+    // handle search function that will be passed to BookingSearch component
+    // takes dateRange as an argument from BookingSearch
+    // and sets the searchStart and searchEnd state variables
     const handleSearch =  (dateRange) => {
         const [start, end] = dateRange;
-        setSearchStart(start);
-        setSearchEnd(end);
 
         // debug log
         console.log(
@@ -42,6 +44,7 @@ function App() {
     };
 
     // filter function to find available rooms based on search criteria
+    // is called in handleSearch ^
     const filterRooms = (sStart, sEnd) => {
         const filteredRooms = rooms.filter(room => {
             if (room.roomReservations.length === 0) {
@@ -68,13 +71,23 @@ function App() {
     return (
         <div>
             <Navbar />
+            {location.pathname === '/' && ( <BookingSearch handleSearch={handleSearch} /> )}
 
-            <BookingSearch handleSearch={handleSearch} />
-            <ViewRooms availableRooms={availableRooms} />
+            <Routes>
+                <Route path="/" element={<ViewRooms availableRooms={availableRooms} />} />
+                <Route path="/book/:roomId" element={<BookingForm />} />
+            </Routes>
 
             <Footer />
         </div>
     );
 }
 
+function App(){
+    return (
+        <Router>
+            <AppContent />
+        </Router>
+    )
+}
 export default App;
