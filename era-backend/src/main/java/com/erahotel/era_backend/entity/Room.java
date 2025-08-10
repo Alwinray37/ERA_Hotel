@@ -18,6 +18,7 @@ public class Room {
 
     private Long roomId;
     private String roomNumber;
+    @Column(length = 2000)
     private String description;
     private BigDecimal price;
 
