@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from 'react';
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/Navbar';
 import BookingSearch from './components/search/BookingSearch';
-import Footer from './components/footer/footer';
+import Footer from './components/Footer';
 import './App.css';
 import ViewRooms from './components/viewRooms';
 import { listRooms } from './service/RoomService';
@@ -11,6 +11,8 @@ import BookingForm from './components/BookingForm';
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
     const [availableRooms, setAvailableRooms] = useState([]);
+    const [searchStart, setSearchStart] = useState(null); // start date for search
+    const [searchEnd, setSearchEnd] = useState(null); // end date for
 
     const location = useLocation();
 
@@ -31,6 +33,10 @@ function AppContent() {
     // and sets the searchStart and searchEnd state variables
     const handleSearch =  (dateRange) => {
         const [start, end] = dateRange;
+
+        // passing these values to ViewRooms component
+        setSearchStart(start);
+        setSearchEnd(end);
 
         // debug log
         console.log(
@@ -74,7 +80,7 @@ function AppContent() {
             {location.pathname === '/' && ( <BookingSearch handleSearch={handleSearch} /> )}
 
             <Routes>
-                <Route path="/" element={<ViewRooms availableRooms={availableRooms} />} />
+                <Route path="/" element={<ViewRooms availableRooms={availableRooms} sStart={searchStart} sEnd={searchEnd} />} />
                 <Route path="/book/:roomId" element={<BookingForm />} />
             </Routes>
 
@@ -83,6 +89,7 @@ function AppContent() {
     );
 }
 
+// Main App component that wraps AppContent with Router
 function App(){
     return (
         <Router>

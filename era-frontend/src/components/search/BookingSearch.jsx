@@ -28,7 +28,6 @@ export default function BookingSearch({ handleSearch }) {
 
 			<div className="booking-bar">
 				<div className="date-container">
-					<span className="date-label">Dates</span>
 					<div className="input-with-icon">
 					<FaRegCalendarAlt className="calendar-icon" />
 					<DatePicker
