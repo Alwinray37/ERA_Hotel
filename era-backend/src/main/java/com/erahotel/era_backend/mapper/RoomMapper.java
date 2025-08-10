@@ -10,9 +10,7 @@ public class RoomMapper {
         RoomDto dto = new RoomDto();
         dto.setRoomId(r.getRoomId());
         dto.setRoomNumber(r.getRoomNumber());
-        dto.setRoomType(r.getRoomType());
-        dto.setPricePerNight(r.getPricePerNight());
-        dto.setReservations(r.getReservations());
+        dto.setReservations(r.getRoomReservations());
         return dto;
     }
 
@@ -21,9 +19,8 @@ public class RoomMapper {
         Room r = new Room();
         r.setRoomId(dto.getRoomId());
         r.setRoomNumber(dto.getRoomNumber());
-        r.setRoomType(dto.getRoomType());
-        r.setPricePerNight(dto.getPricePerNight());
-        r.setReservations(dto.getReservations());
+        r.setPrice(dto.getPricePerNight());
+        r.setRoomReservations(dto.getReservations());
         return r;
     }
 }
