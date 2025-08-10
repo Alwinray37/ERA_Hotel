@@ -9,8 +9,11 @@
 }
 body {
   margin: 0;
+  color: black;
+
+
   font-family: 'Arial', sans-serif;
-  background-color: none; /* light background for contrast */
+  background-color: white; /* light background for contrast */
 }
 
 .container{

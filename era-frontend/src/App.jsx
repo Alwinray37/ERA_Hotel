@@ -7,6 +7,7 @@ import ViewRooms from './components/viewRooms';
 import { listRooms } from './service/RoomService';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import BookingForm from './components/BookingForm';
+import AboutUs from './components/AboutUs';
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
@@ -82,6 +83,7 @@ function AppContent() {
             <Routes>
                 <Route path="/" element={<ViewRooms availableRooms={availableRooms} sStart={searchStart} sEnd={searchEnd} />} />
                 <Route path="/book/:roomId" element={<BookingForm />} />
+                <Route path="/about" element={<AboutUs />} />
             </Routes>
 
             <Footer />

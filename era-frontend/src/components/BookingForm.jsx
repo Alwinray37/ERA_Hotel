@@ -25,6 +25,23 @@ export default function BookingForm() {
             <p><strong>Price:</strong> ${room.price} per night</p>
             <p><strong>Number of Nights:</strong> {days}</p>
             <p><strong>Total Cost:</strong> ${(room.price * days).toFixed(2)}</p>
+
+            {/* add form for user to input their details */}
+            <form>
+                <div>
+                    <label>Name:</label>
+                    <input type="text" required />
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input type="email" required />
+                </div>
+                <div>
+                    <label>Phone:</label>
+                    <input type="tel" required />
+                </div>
+                <button type="submit">Confirm Booking</button>
+            </form> 
         </div>
     );
 }; 
