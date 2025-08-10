@@ -1,82 +1,47 @@
 package com.erahotel.era_backend.service.impl;
 
 import com.erahotel.era_backend.dto.RoomDto;
-import com.erahotel.era_backend.entity.Reservation;
 import com.erahotel.era_backend.entity.Room;
-import com.erahotel.era_backend.exception.ResourceNotFoundException;
 import com.erahotel.era_backend.mapper.RoomMapper;
 import com.erahotel.era_backend.repository.RoomRepository;
-import com.erahotel.era_backend.service.RoomService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
-public class RoomServiceImpl implements RoomService {
+@RequiredArgsConstructor
+public class RoomServiceImpl {
 
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
-    @Override
-    public RoomDto createRoom(RoomDto roomDto) {
-
-        Room room = RoomMapper.mapToRoom(roomDto);
-        if (room.getRoomReservations() != null) {
-            for (Reservation reservation : room.getRoomReservations()) {
-                reservation.setRoom(room);
-            }
-        }
-        Room savedRoom =  roomRepository.save(room);
-
-        return RoomMapper.mapToRoomDto(savedRoom);
+    public List<RoomDto> findAll() {
+        return roomRepository.findAll().stream()
+                .map(RoomMapper::mapToRoomDto)
+                .toList();
     }
 
-    @Override
-    public RoomDto getRoomById(Long roomId) {
-
-        Room room =  roomRepository.findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room is not found with the given ID" + roomId));
-        return RoomMapper.mapToRoomDto(room);
+    public RoomDto findById(Long id) {
+        return roomRepository.findById(id)
+                .map(RoomMapper::mapToRoomDto)
+                .orElse(null);
     }
 
-    @Override
-    public List<RoomDto> getAllRooms() {
-        List<Room> rooms = roomRepository.findAll();
-        return rooms.stream().map((Room room)->RoomMapper.mapToRoomDto(room)).collect(Collectors.toList());
+    public RoomDto create(RoomDto dto) {
+        Room saved = roomRepository.save(RoomMapper.mapToRoom(dto));
+        return RoomMapper.mapToRoomDto(saved);
     }
 
-    @Override
-    public RoomDto updateRoom(Long roomId, RoomDto updatedRoom) {
-        Room room = roomRepository.findById(roomId).orElseThrow(
-                () -> new ResourceNotFoundException("Room Not Found by Id:" + roomId)
-        );
-
-        room.setRoomNumber(updatedRoom.getRoomNumber());
-        room.setDescription(updatedRoom.getDescription());
-        room.setPrice(updatedRoom.getPrice());
-
-        // Set roomReservations with back-references fixed
-        List<Reservation> reservations = updatedRoom.getRoomReservations();
-        if (reservations != null) {
-            for (Reservation reservation : reservations) {
-                reservation.setRoom(room);  // important!
-            }
-            room.setRoomReservations(reservations);
-        }
-
-        Room updatedRoomObj = roomRepository.save(room);
-        return RoomMapper.mapToRoomDto(updatedRoomObj);
+    public RoomDto update(Long id, RoomDto dto) {
+        Room existing = roomRepository.findById(id).orElseThrow();
+        existing.setRoomNumber(dto.getRoomNumber());
+        existing.setRoomType(dto.getRoomType());
+        existing.setPricePerNight(dto.getPricePerNight());
+        existing.setReservations(dto.getReservations());
+        return RoomMapper.mapToRoomDto(roomRepository.save(existing));
     }
 
-    @Override
-    public void deleteRoom(Long roomId) {
-        Room room =  roomRepository.findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room is not found with the given ID" + roomId));
-
-        roomRepository.deleteById(roomId);
+    public void delete(Long id) {
+        roomRepository.deleteById(id);
     }
-
-
 }
