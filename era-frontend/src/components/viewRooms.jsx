@@ -15,7 +15,7 @@ function ViewRooms({ availableRooms, sStart, sEnd}) {
     };
 
     return (
-        <div className="room-cards-container">
+        <div className="room-cards-container container">
             {availableRooms && availableRooms.length > 0 ? (
                 availableRooms.map((room) => (
                     <div className="room-card" key={room.roomNumber}>
