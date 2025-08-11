@@ -2,6 +2,7 @@ package com.erahotel.era_backend.controller;
 
 import com.erahotel.era_backend.dto.GuestDto;
 import com.erahotel.era_backend.dto.RoomDto;
+import com.erahotel.era_backend.entity.Guest;
 import com.erahotel.era_backend.service.GuestService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,13 @@ public class GuestController {
     @GetMapping("{id}")
     public ResponseEntity<GuestDto> getGuestById(@PathVariable("id") Long guestId){
         GuestDto guestDto = guestService.getGuestById(guestId);
+        return ResponseEntity.ok(guestDto);
+    }
+
+    // get by email
+    @GetMapping("/{email}")
+    public ResponseEntity<GuestDto> getGuestByEmail(@PathVariable("email") String email){
+        GuestDto guestDto = guestService.getGuestByEmail(email);
         return ResponseEntity.ok(guestDto);
     }
 
