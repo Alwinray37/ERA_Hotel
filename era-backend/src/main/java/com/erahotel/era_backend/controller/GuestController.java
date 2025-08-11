@@ -32,7 +32,7 @@ public class GuestController {
     }
 
     // get by email
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<GuestDto> getGuestByEmail(@PathVariable("email") String email){
         GuestDto guestDto = guestService.getGuestByEmail(email);
         return ResponseEntity.ok(guestDto);
