@@ -21,7 +21,9 @@ export default function ViewReservations() {
            }
 
     ];
+    function AllReservations (){
 
+        }
 
     return (
         <div className="main-content">
@@ -29,6 +31,8 @@ export default function ViewReservations() {
                 <h3>View Reservations</h3>
                 <input placeholder="Enter Email" />
             </form>
+
+    <button className='btn btn-primary mb-2' onClick={AllReservations}>Enter</button>
         </div>
 
     )
