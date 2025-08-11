@@ -23,6 +23,7 @@ public class Guest{
     // mappedBy = "guest" indicates the Reservation entity owns the relationship
     // cascade = CascadeType.All means all operations (persist, merge, remove..) are cascaded to reservations
     // orphanRemoval = true means if a reservation is removed from this list, it will be deleted from the database.
-    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reservation> guestReservations; // tracks all reservations for this guest.
+
+    // list of reservationId "ABC123"
+    private List<String> guestReservations; // tracks all reservations for this guest.
 }

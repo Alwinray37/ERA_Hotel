@@ -1,41 +1,36 @@
 package com.erahotel.era_backend.entity;
 
-import com.erahotel.era_backend.entity.Guest;
-import com.erahotel.era_backend.entity.Room;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.erahotel.era_backend.utils.ReservationIdGenerator;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.PrePersist;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Entity
+@Table(name = "reservations")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "reservations")
 
 public class Reservation {
+
     @Id
     @Column(unique = true, nullable = false)
-    // this tells JPA that reservationId is the primary key, must be unique, and it will be provided manually
-    // custom ID 3 letters and 3 numbers (ABC123)
-    private String reservationId;
+    private String reservationId; // Custom ID like ABC123
 
-    @ManyToOne
-    @JoinColumn(name = "guest_id")
-    private Guest guest;
-
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    @JsonIgnore
-    private Room room;
-
+    private String guestEmail;
+    private String roomNumber;
     private Date startDate;
     private Date endDate;
     private BigDecimal totalCost;
-    private String status; // Confirmed, Cancelled, Finished
+    private String status; // confirmed, cancelled, finished
 
+    @PrePersist
+    public void assignReservationId() {
+        if (this.reservationId == null) {
+            this.reservationId = ReservationIdGenerator.generateId();
+        }
+    }
 }

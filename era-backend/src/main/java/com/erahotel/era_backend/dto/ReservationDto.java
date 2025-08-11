@@ -10,8 +10,12 @@ import java.util.Date;
 @Data
 public class ReservationDto {
     private String reservationId;
-    private Guest guest;
-    private Room room;
+//    private Guest guest;
+//    private Room room;
+
+    private String guestEmail;
+    private String roomNumber;
+
     private Date startDate;
     private Date endDate;
     private BigDecimal totalCost;

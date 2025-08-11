@@ -22,8 +22,7 @@ public class Room {
     private String description;
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reservation> roomReservations; // tracks all reservations for this room
+    private List<String> roomReservations; // tracks all reservations for this room
 
     // Lombok is used here to automatically generate boilerplate code like getters,
     // setters,

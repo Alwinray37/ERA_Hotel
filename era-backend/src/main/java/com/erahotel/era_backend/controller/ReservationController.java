@@ -40,4 +40,10 @@ public class ReservationController {
         reservationService.deleteReservation(reservationId);
         return ResponseEntity.ok("Reservation Deleted Successfully.");
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ReservationDto> updateReservation(@PathVariable("id") String resId, @RequestBody ReservationDto updatedReservation){
+        ReservationDto resDto = reservationService.updateReservation(resId, updatedReservation);
+        return ResponseEntity.ok(resDto);
+    }
 }

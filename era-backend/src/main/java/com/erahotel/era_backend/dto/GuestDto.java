@@ -15,5 +15,5 @@ public class GuestDto {
     private String name;
     private String email;
     private String phone;
-    private List<Reservation> guestReservations;
+    private List<String> guestReservations;
 }

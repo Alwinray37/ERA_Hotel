@@ -8,8 +8,8 @@ public class ReservationMapper {
     public static ReservationDto mapToDto(Reservation reservation) {
         ReservationDto dto = new ReservationDto();
         dto.setReservationId(reservation.getReservationId());
-        dto.setGuest(reservation.getGuest());
-        dto.setRoom(reservation.getRoom());
+        dto.setGuestEmail(reservation.getGuestEmail());
+        dto.setRoomNumber(reservation.getRoomNumber());
         dto.setStartDate(reservation.getStartDate());
         dto.setEndDate(reservation.getEndDate());
         dto.setTotalCost(reservation.getTotalCost());
@@ -20,8 +20,8 @@ public class ReservationMapper {
     public static Reservation mapToEntity(ReservationDto dto) {
         Reservation reservation = new Reservation();
         reservation.setReservationId(dto.getReservationId()); // might be null on create
-        reservation.setGuest(dto.getGuest());
-        reservation.setRoom(dto.getRoom());
+        reservation.setGuestEmail(dto.getGuestEmail());
+        reservation.setRoomNumber(dto.getRoomNumber());
         reservation.setStartDate(dto.getStartDate());
         reservation.setEndDate(dto.getEndDate());
         reservation.setTotalCost(dto.getTotalCost());

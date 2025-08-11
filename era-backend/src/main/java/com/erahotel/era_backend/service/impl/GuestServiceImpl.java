@@ -3,6 +3,7 @@ package com.erahotel.era_backend.service.impl;
 
 import com.erahotel.era_backend.dto.GuestDto;
 import com.erahotel.era_backend.entity.Guest;
+import com.erahotel.era_backend.entity.Reservation;
 import com.erahotel.era_backend.exception.ResourceNotFoundException;
 import com.erahotel.era_backend.repository.GuestRepository;
 import com.erahotel.era_backend.mapper.GuestMapper;
@@ -20,8 +21,8 @@ public class GuestServiceImpl implements GuestService {
     @Override
     public GuestDto createGuest(GuestDto guestDto){
         Guest guest = GuestMapper.mapToGuest(guestDto);
-        Guest savedGuest = guestRepository.save(guest);
 
+        Guest savedGuest = guestRepository.save(guest);
         return GuestMapper.mapToGuestDto(savedGuest);
     }
 

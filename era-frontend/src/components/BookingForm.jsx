@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getGuestByEmail } from '../service/GuestService';
 
 export default function BookingForm() {
     const location = useLocation();
@@ -19,6 +20,38 @@ export default function BookingForm() {
     };
     const days = calculateDays(searchStart, searchEnd);
 
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: ''
+    });
+
+    // handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // check if email is already in database
+        getGuestByEmail(formData.email)
+            .then(guest => {
+                if (guest) {
+                    console.log('Guest already exists:', guest);
+                    // proceed with booking using existing guest data
+                } else {
+                    // if not, create a new guest object in the database
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching guest:', error);
+            });
+    };
+
+
+    // handle changes in form inputs
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
     return (
         <div className='main-content'>
             <h2>Booking For Room {room.roomNumber}</h2>
@@ -26,22 +59,23 @@ export default function BookingForm() {
             <p><strong>Number of Nights:</strong> {days}</p>
             <p><strong>Total Cost:</strong> ${(room.price * days).toFixed(2)}</p>
 
-            {/* add form for user to input their details */}
-            <form>
+            {/* Form for user to input their details */}
+            <form className='guest-booking-form' onSubmit={handleSubmit}>
+                <h3>Guest Information</h3>
                 <div>
-                    <label>Name:</label>
-                    <input type="text" required />
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder='Enter your name'/>
                 </div>
                 <div>
-                    <label>Email:</label>
-                    <input type="email" required />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder='Enter your email'/>
                 </div>
                 <div>
-                    <label>Phone:</label>
-                    <input type="tel" required />
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required placeholder='Enter your phone number'/>
                 </div>
-                <button type="submit">Confirm Booking</button>
+                <button type="submit" >Confirm Booking</button>
             </form> 
         </div>
     );
 }; 
+
+// Guest inputs their name, email and phone number
+// when submitted, create a guest object in database 

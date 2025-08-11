@@ -9,4 +9,5 @@ public interface ReservationService {
     ReservationDto getReservationById(String reservationId);
     List<ReservationDto> getAllReservations();
     void deleteReservation(String reservationId);
+    ReservationDto updateReservation(String resId, ReservationDto reservationDto);
 }
