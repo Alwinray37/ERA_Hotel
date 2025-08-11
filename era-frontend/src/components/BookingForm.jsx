@@ -19,6 +19,16 @@ export default function BookingForm() {
     };
     const days = calculateDays(searchStart, searchEnd);
 
+    const reservationDetails = {
+        room: room,
+        name: '',
+        email: '',
+        phone: '',
+        startDate: searchStart,
+        endDate: searchEnd,
+        totalCost: room.price * days
+    }
+
     return (
         <div className='main-content'>
             <h2>Booking For Room {room.roomNumber}</h2>
@@ -27,21 +37,28 @@ export default function BookingForm() {
             <p><strong>Total Cost:</strong> ${(room.price * days).toFixed(2)}</p>
 
             {/* add form for user to input their details */}
-            <form>
+            <form className='guest-booking-form' onSubmit={(e) => {
+                e.preventDefault();
+                // handle form submission logic here
+                console.log('Booking confirmed for:', room.roomNumber);
+                navigate('/'); // redirect to home page after booking
+            }}>
+                {/* create form */}
+                <h3>Guest Information</h3>
                 <div>
-                    <label>Name:</label>
-                    <input type="text" required />
+                    <input type="text" required placeholder='Enter your name'/>
                 </div>
                 <div>
-                    <label>Email:</label>
-                    <input type="email" required />
+                    <input type="email" required placeholder='Enter your email'/>
                 </div>
                 <div>
-                    <label>Phone:</label>
-                    <input type="tel" required />
+                    <input type="tel" required placeholder='Enter your phone number'/>
                 </div>
-                <button type="submit">Confirm Booking</button>
+                <button type="submit" >Confirm Booking</button>
             </form> 
         </div>
     );
 }; 
+
+// Guest inputs their name, email and phone number
+// when submitted, create a guest object in database 
