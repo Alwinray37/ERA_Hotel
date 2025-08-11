@@ -21,18 +21,20 @@ export default function ViewReservations() {
            }
 
     ];
-    function AllReservations (){
+    function handleSubmit (){
 
-        }
+    }
 
     return (
         <div className="main-content">
-            <form>
+            <form onSubmit = {handleSubmit} >
                 <h3>View Reservations</h3>
                 <input placeholder="Enter Email" />
+                <input placeholder="Enter Reservation Number" />
+                 <button className='btn btn-primary mb-2' type="submit">Submit</button>
             </form>
 
-    <button className='btn btn-primary mb-2' onClick={AllReservations}>Enter</button>
+
         </div>
 
     )
