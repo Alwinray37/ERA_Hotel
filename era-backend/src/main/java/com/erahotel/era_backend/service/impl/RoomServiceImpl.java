@@ -21,13 +21,8 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public RoomDto createRoom(RoomDto roomDto) {
-
         Room room = RoomMapper.mapToRoom(roomDto);
-        if (room.getRoomReservations() != null) {
-            for (Reservation reservation : room.getRoomReservations()) {
-                reservation.setRoom(room);
-            }
-        }
+
         Room savedRoom =  roomRepository.save(room);
 
         return RoomMapper.mapToRoomDto(savedRoom);
@@ -57,14 +52,6 @@ public class RoomServiceImpl implements RoomService {
         room.setDescription(updatedRoom.getDescription());
         room.setPrice(updatedRoom.getPrice());
 
-        // Set roomReservations with back-references fixed
-        List<Reservation> reservations = updatedRoom.getRoomReservations();
-        if (reservations != null) {
-            for (Reservation reservation : reservations) {
-                reservation.setRoom(room);  // important!
-            }
-            room.setRoomReservations(reservations);
-        }
 
         Room updatedRoomObj = roomRepository.save(room);
         return RoomMapper.mapToRoomDto(updatedRoomObj);

@@ -22,16 +22,18 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationDto createReservation(ReservationDto reservationDto) {
         Reservation reservation = ReservationMapper.mapToEntity(reservationDto);
 
-        // Generate unique ID
-        String id;
-        do {
-            id = ReservationIdGenerator.generateId();
-        } while (reservationRepository.existsById(id));
+        // Ensure custom ID is set (in case @PrePersist doesn’t trigger)
+        if (reservation.getReservationId() == null) {
+            String id;
+            do {
+                id = ReservationIdGenerator.generateId();
+            } while (reservationRepository.existsById(id)); // Prevent duplicates
+            reservation.setReservationId(id);
+        }
 
-        reservation.setReservationId(id);
         Reservation savedReservation = reservationRepository.save(reservation);
-
         return ReservationMapper.mapToDto(savedReservation);
+
     }
 
     @Override
@@ -52,5 +54,21 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void deleteReservation(String reservationId) {
         reservationRepository.deleteById(reservationId);
+    }
+
+    @Override
+    public ReservationDto updateReservation(String resId, ReservationDto reservationDto){
+        Reservation existingReservation = reservationRepository.findById(resId)
+                .orElseThrow(() -> new RuntimeException("Reservation not found with id: " + resId));
+
+        existingReservation.setGuestEmail(reservationDto.getGuestEmail());
+        existingReservation.setRoomNumber(reservationDto.getRoomNumber());
+        existingReservation.setStartDate(reservationDto.getStartDate());
+        existingReservation.setEndDate(reservationDto.getEndDate());
+        existingReservation.setTotalCost(reservationDto.getTotalCost());
+        existingReservation.setStatus(reservationDto.getStatus());
+
+        Reservation updatedReservation = reservationRepository.save(existingReservation);
+        return ReservationMapper.mapToDto(updatedReservation);
     }
 }

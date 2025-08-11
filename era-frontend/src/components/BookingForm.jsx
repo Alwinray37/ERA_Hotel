@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getGuestByEmail } from '../service/GuestService';
 
 export default function BookingForm() {
     const location = useLocation();
@@ -19,15 +20,37 @@ export default function BookingForm() {
     };
     const days = calculateDays(searchStart, searchEnd);
 
-    const reservationDetails = {
-        room: room,
+    const [formData, setFormData] = useState({
         name: '',
         email: '',
-        phone: '',
-        startDate: searchStart,
-        endDate: searchEnd,
-        totalCost: room.price * days
-    }
+        phone: ''
+    });
+
+    // handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // check if email is already in database
+        getGuestByEmail(formData.email)
+            .then(guest => {
+                if (guest) {
+                    console.log('Guest already exists:', guest);
+                    // proceed with booking using existing guest data
+                } else {
+                    // if not, create a new guest object in the database
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching guest:', error);
+            });
+    };
+
+
+    // handle changes in form inputs
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     return (
         <div className='main-content'>
@@ -36,23 +59,17 @@ export default function BookingForm() {
             <p><strong>Number of Nights:</strong> {days}</p>
             <p><strong>Total Cost:</strong> ${(room.price * days).toFixed(2)}</p>
 
-            {/* add form for user to input their details */}
-            <form className='guest-booking-form' onSubmit={(e) => {
-                e.preventDefault();
-                // handle form submission logic here
-                console.log('Booking confirmed for:', room.roomNumber);
-                navigate('/'); // redirect to home page after booking
-            }}>
-                {/* create form */}
+            {/* Form for user to input their details */}
+            <form className='guest-booking-form' onSubmit={handleSubmit}>
                 <h3>Guest Information</h3>
                 <div>
-                    <input type="text" required placeholder='Enter your name'/>
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder='Enter your name'/>
                 </div>
                 <div>
-                    <input type="email" required placeholder='Enter your email'/>
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder='Enter your email'/>
                 </div>
                 <div>
-                    <input type="tel" required placeholder='Enter your phone number'/>
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required placeholder='Enter your phone number'/>
                 </div>
                 <button type="submit" >Confirm Booking</button>
             </form> 
