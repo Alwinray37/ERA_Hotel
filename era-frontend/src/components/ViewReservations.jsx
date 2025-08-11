@@ -1,10 +1,36 @@
 // this is where the guests can view their reservations
 
 export default function ViewReservations() {
+
+    const dummyData = [
+        {
+            "id": 1,
+            "email": "john@email.com",
+            "reservationNumber": "res10001"
+        },
+        {
+                "id": 2,
+                "email": "tomK@email.com",
+                "reservationNumber": "res10002"
+        },
+
+           {
+                    "id": 3,
+                    "email": "tomK@email.com",
+                    "reservationNumber": "res10002"
+           }
+
+    ];
+
+
     return (
         <div className="main-content">
-            <h2>View Reservations</h2>
-            <p>This feature is under development. Please check back later.</p>
+            <form>
+                <h3>View Reservations</h3>
+                <input placeholder="Enter Email" />
+            </form>
         </div>
-    );
-}   
+
+    )
+
+}
