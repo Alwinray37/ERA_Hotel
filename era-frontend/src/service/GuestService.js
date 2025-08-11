@@ -33,14 +33,13 @@ export const createGuest = async (guestData) => {
 
 // get guest by email
 export const getGuestByEmail = async (email) => {
-  if (!email) {
-    throw new Error('Email is required to fetch guest');
-  }
-
   try {
     const response = await axios.get(`${urlbase}/email/${email}`);
     return response.data;
   } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return null; // Guest not found
+    }
     console.error('Error fetching guest by email:', error);
     throw error;
   }

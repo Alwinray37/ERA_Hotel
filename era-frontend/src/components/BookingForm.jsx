@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getGuestByEmail } from '../service/GuestService';
+import { getGuestByEmail, createGuest } from '../service/GuestService';
 
 export default function BookingForm() {
     const location = useLocation();
@@ -27,22 +27,27 @@ export default function BookingForm() {
     });
 
     // handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // check if email is already in database
-        getGuestByEmail(formData.email)
-            .then(guest => {
-                if (guest) {
-                    console.log('Guest already exists:', guest);
-                    // proceed with booking using existing guest data
-                } else {
-                    // if not, create a new guest object in the database
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching guest:', error);
-            });
+         // Check if guest already exists by email
+        try {
+            const guest = await getGuestByEmail(formData.email);
+            if (guest) {
+                console.log('Guest already exists. ', guest);
+                return;
+            }
+
+            // Create new guest if not found
+            const newGuest = await createGuest(formData);
+            console.log('New guest created:', newGuest);
+
+            // Redirect to a confirmation page 
+            // navigate(`/confirmation`);
+        } catch (error) {
+            console.error('Error creating guest:', error);
+            alert('Failed to create guest. Please try again.');
+        }
     };
 
 
@@ -54,21 +59,25 @@ export default function BookingForm() {
 
     return (
         <div className='main-content'>
-            <h2>Booking For Room {room.roomNumber}</h2>
-            <p><strong>Price:</strong> ${room.price} per night</p>
-            <p><strong>Number of Nights:</strong> {days}</p>
-            <p><strong>Total Cost:</strong> ${(room.price * days).toFixed(2)}</p>
-
+            <div className='booking-details'>
+                <h2>Booking For Room {room.roomNumber}</h2>
+                <p><strong>Price:</strong> ${room.price} per night</p>
+                <p><strong>Number of Nights:</strong> {days}</p>
+                <p><strong>Total Cost:</strong> ${(room.price * days).toFixed(2)}</p>
+            </div>
             {/* Form for user to input their details */}
-            <form className='guest-booking-form' onSubmit={handleSubmit}>
+            <form className='guest-booking-form form' onSubmit={handleSubmit}>
                 <h3>Guest Information</h3>
                 <div>
+                    <label htmlFor="name">Name:</label>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder='Enter your name'/>
                 </div>
                 <div>
+                    <label htmlFor="email">Email:</label>
                     <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder='Enter your email'/>
                 </div>
                 <div>
+                    <label htmlFor="phone">Phone:</label>
                     <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required placeholder='Enter your phone number'/>
                 </div>
                 <button type="submit" >Confirm Booking</button>
@@ -78,4 +87,8 @@ export default function BookingForm() {
 }; 
 
 // Guest inputs their name, email and phone number
-// when submitted, create a guest object in database 
+// when button is clicked, check if guest already exists
+// if exists, create a reservation instance, and append to the existing guest's reservations
+// if not, create a new guest instance, and then create a reservation instance
+// redirect to a confirmation page
+
