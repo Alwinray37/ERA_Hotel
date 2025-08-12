@@ -1,0 +1,13 @@
+.view-res-form{
+    background: lightblue;
+    border: 2px solid black;
+
+}
+.rform{
+    box-shadow: 2px 2px 2px 2px gray;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
