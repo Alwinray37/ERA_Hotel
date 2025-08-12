@@ -1,6 +1,8 @@
 // functions to get and create reservation objects
 import axios from 'axios';
 const urlbase = 'http://localhost:8080/api/reservations';
+const urlAppendGuest = 'http://localhost:8080/api/guests';
+const urlAppendRoom = 'http://localhost:8080/api/rooms';
 
 export const listReservations = async () => {
   try {
@@ -46,12 +48,22 @@ export const updateReservation = async (id, reservationData) => {
 }
 
 
-export async function appendResIdToGuest(guestId, reservationId) {
+export async function appendResIdToGuest(guestId, reservationId) { 
     try {
-        const response = await axios.post(`http://localhost:8080/api/guests/${guestId}/reservations`, reservationId, { headers: { 'Content-Type': 'application/json' }} );
+        const response = await axios.post(`${urlAppendGuest}/${guestId}/reservations`, reservationId, { headers: { 'Content-Type': 'application/json' }} );
         return response.data;   
     } catch (error){
         console.log("error appending ResId to guest Res.");
+        throw error;
+    }
+}
+
+export const appendResIdToRoom = async (roomId, resId) => {
+    try {
+        const res = await axios.post(`${urlAppendRoom}/${roomId}/reservations`, resId, {headers: { 'Content-Type': 'application/json' }});
+        return res.data;
+    } catch (error) {
+        console.log("Error appending resID to room");
         throw error;
     }
 }

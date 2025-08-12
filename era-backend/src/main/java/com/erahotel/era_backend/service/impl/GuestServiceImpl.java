@@ -60,9 +60,9 @@ public class GuestServiceImpl implements GuestService {
         guest.setEmail(updatedGuest.getEmail());
 
         // append new reservations from dto
-        if((updatedGuest.getGuestReservations() != null && !updatedGuest.getGuestReservations().isEmpty())){
-            guest.getGuestReservations().add(updatedGuest.getGuestReservations().get(0));
-        }
+//        if((updatedGuest.getGuestReservations() != null && !updatedGuest.getGuestReservations().isEmpty())){
+//            guest.getGuestReservations().add(updatedGuest.getGuestReservations().get(0));
+//        }
 
         Guest savedGuest = guestRepository.save(guest);
         return GuestMapper.mapToGuestDto(savedGuest);
@@ -72,7 +72,7 @@ public class GuestServiceImpl implements GuestService {
     public GuestDto addReservation(Long guestId, String reservationId) {
         Guest guest = guestRepository.findById(guestId)
                 .orElseThrow(() -> new ResourceNotFoundException("Guest not found"));
-        
+
         guest.getGuestReservations().add(reservationId);
         guestRepository.save(guest);
 

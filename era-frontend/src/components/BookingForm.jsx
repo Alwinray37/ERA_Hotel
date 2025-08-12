@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getGuestByEmail, createGuest, updateGuest} from '../service/GuestService';
-import { appendResIdToGuest, createReservation, updateReservation } from '../service/ReservationService'; // Assuming you have a service to create reservations
+import { appendResIdToGuest, appendResIdToRoom, createReservation, updateReservation } from '../service/ReservationService'; // Assuming you have a service to create reservations
 import { set } from 'date-fns';
+import { getRoom, updateRoom } from '../service/RoomService';
 
 export default function BookingForm() {
     const location = useLocation();
@@ -79,12 +80,24 @@ export default function BookingForm() {
 
             // Append reservation ID to guest
             const updatedGuest = await appendResIdToGuest(guest.guestId, reservation.reservationId);
-            console.log(updatedGuest);
+            console.log("Updated Guest ResList", updatedGuest);
             
             // update guest to database 
-            const pushGuest = await updateGuest(guest.guestId, updatedGuest); 
+            const saveGuest = await updateGuest(guest.guestId, updatedGuest); 
+
+            // get room obj
+            let resRoom = await getRoom(room.roomId);
+            if(!resRoom){
+                console.log("Room failed to load");
+            }
+            // append to roomReservations 
+            const tempRoom = await appendResIdToRoom(resRoom.roomId, reservation.reservationId);
+            console.log("Updated Room Res list: ", tempRoom);
+
+            await updateRoom(resRoom.roomId, tempRoom);
+            
             // Optionally navigate to a confirmation page
-            // navigate('/confirmation', { state: { guest: updatedGuest, reservation } });
+            navigate('/confirmation', { state: { guest: updatedGuest, reservation } });
 
         } catch (error) {
             console.error('Error during booking', error);

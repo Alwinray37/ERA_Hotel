@@ -65,5 +65,13 @@ public class RoomServiceImpl implements RoomService {
         roomRepository.deleteById(roomId);
     }
 
+    @Override
+    public RoomDto addReservation(Long roomId, String resId){
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow( () -> new ResourceNotFoundException("Room not found"));
+        room.getRoomReservations().add(resId);
+        roomRepository.save(room);
 
+        return RoomMapper.mapToRoomDto(room);
+    }
 }

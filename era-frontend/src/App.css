@@ -72,6 +72,13 @@ body {
   margin: 2rem;
   padding: 0;
 }
+.hero-overlay {
+  background-image: url('/assets/hero-background.jpg');
+  background-size: cover;      /* make it fill the container */
+  background-position: center; /* center the image */
+  background-repeat: no-repeat;
+  /* background-color: blue; */
+}
 
 .hero-section h1,
 .hero-section p {

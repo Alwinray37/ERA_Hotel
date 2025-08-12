@@ -1,8 +1,5 @@
 package com.erahotel.era_backend.dto;
 
-import com.erahotel.era_backend.entity.Reservation;
-import com.erahotel.era_backend.entity.RoomType;
-
 import java.math.BigDecimal;
 import java.util.List;
 

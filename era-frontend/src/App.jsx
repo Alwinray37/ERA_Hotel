@@ -10,6 +10,8 @@ import BookingForm from './components/BookingForm';
 import AboutUs from './components/AboutUs';
 import Admin from './components/Admin';
 import ViewReservations from './components/ViewReservations';
+import Confirmation from './components/Confirmation';
+import { getReservationById } from './service/ReservationService';
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
@@ -54,29 +56,50 @@ function AppContent() {
 
     // filter function to find available rooms based on search criteria
     // is called in handleSearch ^
-    const filterRooms = (sStart, sEnd) => {
-        const filteredRooms = rooms.filter(room => {
-            if (room.roomReservations.length === 0) {
-                return true; // room is available if it has no reservations
+    const filterRooms = async (sStart, sEnd) => {
+        if (!sStart || !sEnd) {
+            setAvailableRooms([]);
+            return;
+        }
+
+        const searchStart = new Date(sStart);
+        const searchEnd = new Date(sEnd);
+
+        const filteredRooms = [];
+
+        for (const room of rooms) {
+            // If no reservations, room is available
+            if (!room.roomReservations || room.roomReservations.length === 0) {
+                filteredRooms.push(room);
+                continue;
             }
 
-            // filter logic for rooms with reservations
-            return room.roomReservations.every(reservation => {
+            // Fetch all reservation details for this room in parallel
+            const reservations = await Promise.all(
+                room.roomReservations.map(resId => getReservationById(resId))
+            );
+
+            // Check for overlap with any reservation
+            const hasOverlap = reservations.some(reservation => {
                 const resStart = new Date(reservation.startDate);
                 const resEnd = new Date(reservation.endDate);
 
-                // debug log
-                console.log(
-                    'Comparing: ' + room.roomNumber,
-                    '\nreservation dates: ', resStart, ' to ', resEnd,
-                    '\nsearch dates: ', sStart, ' to ', sEnd
-                );
-                return sEnd < resStart || sStart > resEnd;
+                // Overlap logic: (searchStart <= resEnd) && (searchEnd >= resStart)
+                return (searchStart <= resEnd) && (searchEnd >= resStart);
             });
-        });
+
+            // Room is available if there is NO overlap
+            if (!hasOverlap) {
+                filteredRooms.push(room);
+            }
+        }
+
         setAvailableRooms(filteredRooms);
         console.log('Filtered rooms:', filteredRooms);
-    }
+    };
+
+
+
     return (
         <div>
             <Navbar />
@@ -88,6 +111,7 @@ function AppContent() {
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/view-reservation" element={<ViewReservations />} />
+                <Route path="/confirmation" element={<Confirmation />} />
             </Routes>
 
             <Footer />

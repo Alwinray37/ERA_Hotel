@@ -51,4 +51,13 @@ public class RoomController {
         roomService.deleteRoom(roomId);
         return ResponseEntity.ok("Room Deleted Successfully.");
     }
+
+    // append resId to room res. list
+    @PostMapping("/{id}/reservations")
+    public ResponseEntity<RoomDto> addReservationToRoom(
+            @PathVariable("id") Long roomId,
+            @RequestBody String reservationId) {
+        RoomDto updatedRoom = roomService.addReservation(roomId, reservationId.replace("\"", ""));
+        return ResponseEntity.ok(updatedRoom);
+    }
 }
