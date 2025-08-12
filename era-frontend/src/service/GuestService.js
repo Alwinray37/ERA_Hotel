@@ -44,3 +44,14 @@ export const getGuestByEmail = async (email) => {
     throw error;
   }
 }   
+
+// update guest information
+export const updateGuest = async (id, guestData) => {   
+  try {
+    const response = await axios.put(`${urlbase}/${id}`, guestData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating guest:', error);
+    throw error;
+  }
+}

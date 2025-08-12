@@ -3,6 +3,7 @@ package com.erahotel.era_backend.controller;
 import com.erahotel.era_backend.dto.GuestDto;
 import com.erahotel.era_backend.dto.RoomDto;
 import com.erahotel.era_backend.entity.Guest;
+import com.erahotel.era_backend.exception.ResourceNotFoundException;
 import com.erahotel.era_backend.service.GuestService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,4 +52,21 @@ public class GuestController {
         guestService.deleteGuest(guestId);
         return ResponseEntity.ok("Guest Deleted Successfully.");
     }
+
+    // put mapping for updating guest info
+    // used for when appending the reservation to the guestReservations list
+    @PutMapping("/{id}")
+    public ResponseEntity<GuestDto> updateGuest(@PathVariable("id") Long guestId, @RequestBody GuestDto updatedGuest){
+        GuestDto guestDto =  guestService.updateGuest(guestId, updatedGuest);
+        return ResponseEntity.ok(guestDto);
+    }
+    // Append a reservation to guestReservations
+    @PostMapping("/{id}/reservations")
+    public ResponseEntity<GuestDto> addReservationToGuest(
+            @PathVariable("id") Long guestId,
+            @RequestBody String reservationId) {
+        GuestDto updatedGuest = guestService.addReservation(guestId, reservationId.replace("\"", ""));
+        return ResponseEntity.ok(updatedGuest);
+    }
+
 }

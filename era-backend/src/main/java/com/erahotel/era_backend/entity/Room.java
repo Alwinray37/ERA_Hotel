@@ -22,6 +22,7 @@ public class Room {
     private String description;
     private BigDecimal price;
 
+    @ElementCollection
     private List<String> roomReservations; // tracks all reservations for this room
 
     // Lombok is used here to automatically generate boilerplate code like getters,

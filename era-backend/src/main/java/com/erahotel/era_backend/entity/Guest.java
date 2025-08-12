@@ -3,6 +3,7 @@ package com.erahotel.era_backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @NoArgsConstructor
@@ -25,5 +26,6 @@ public class Guest{
     // orphanRemoval = true means if a reservation is removed from this list, it will be deleted from the database.
 
     // list of reservationId "ABC123"
-    private List<String> guestReservations; // tracks all reservations for this guest.
+    @ElementCollection
+    private List<String> guestReservations = new ArrayList<>(); // tracks all reservations for this guest.
 }

@@ -44,3 +44,14 @@ export const updateReservation = async (id, reservationData) => {
     throw error;
   }
 }
+
+
+export async function appendResIdToGuest(guestId, reservationId) {
+    try {
+        const response = await axios.post(`http://localhost:8080/api/guests/${guestId}/reservations`, reservationId, { headers: { 'Content-Type': 'application/json' }} );
+        return response.data;   
+    } catch (error){
+        console.log("error appending ResId to guest Res.");
+        throw error;
+    }
+}

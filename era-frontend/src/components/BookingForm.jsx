@@ -1,26 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getGuestByEmail, createGuest } from '../service/GuestService';
-import { createReservation } from '../service/ReservationService'; // Assuming you have a service to create reservations
+import { getGuestByEmail, createGuest, updateGuest} from '../service/GuestService';
+import { appendResIdToGuest, createReservation, updateReservation } from '../service/ReservationService'; // Assuming you have a service to create reservations
 import { set } from 'date-fns';
 
 export default function BookingForm() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const room = location.state?.room; // Get the room data passed from ViewRooms
-    const searchStart = location.state?.searchStart; // Get the search start date
-    const searchEnd = location.state?.searchEnd; // Get the search end date
+    const room = location.state?.room;                  // Get the room data passed from ViewRooms
+    const searchStart = location.state?.searchStart;    // Get the search start date
+    const searchEnd = location.state?.searchEnd;        // Get the search end date
 
     // function to determine # of days between searchStart and searchEnd
-    const calculateDays = (start, end) => {
+    const calculateNights = (start, end) => {
         if (!start || !end) return 0;
         const startDate = new Date(start);
         const endDate = new Date(end);
         const timeDiff = endDate - startDate;
         return (Math.ceil(timeDiff / (1000 * 3600 * 24))); // convert ms to days
     };
-    const days = calculateDays(searchStart, searchEnd);
+    const numberOfNights = calculateNights(searchStart, searchEnd);
 
     // guestInfo state to hold user input
     // for guest information, to create a new guest if they don't exist
@@ -37,9 +37,17 @@ export default function BookingForm() {
         guestEmail: guestInfo.email,
         startDate: searchStart,
         endDate: searchEnd,
-        totalCost: (room.price * days).toFixed(2), // total cost based on room price and number of days
+        totalCost: (room.price * numberOfNights).toFixed(2), // total cost based on room price and number of days
         status: "Confirmed" // default status
     });
+
+    // Update reservation guestEmail when guestInfo.email changes
+    useEffect(() => {
+        setForReservation(prev => ({
+            ...prev,
+            guestEmail: guestInfo.email
+        }));
+    }, [guestInfo.email]);
 
     // handle form submission
     const handleSubmit = async (e) => {
@@ -47,43 +55,55 @@ export default function BookingForm() {
 
          // Check if guest already exists by email
         try {
+            // Check if guest exists
             let guest = await getGuestByEmail(guestInfo.email);
             if (!guest) {
-                // If guest does not exist, create a new guest
                 guest = await createGuest(guestInfo);
                 console.log('New guest created:', guest);
             } else {
-                // If guest exists, update the guestInfo state with existing guest data
-                console.log('Guest already exists. ', guest);
                 setGuestInfo({
                     name: guest.name,
                     email: guest.email,
                     phone: guest.phone
                 });
+                console.log("Guest Exists: ", guest);
             }
 
-            // Create a reservation object
+            // Create reservation
             const reservationData = {
                 ...forReservation,
-                guestEmail: guest.email // Ensure the reservation has the correct guest email
+                guestEmail: guest.email
             };
-
             const reservation = await createReservation(reservationData);
-            console.log('Reservation created:', reservation);
+            console.log("Reservation Created: ", reservation.reservationId);
+
+            // Append reservation ID to guest
+            const updatedGuest = await appendResIdToGuest(guest.guestId, reservation.reservationId);
+            console.log(updatedGuest);
+            
+            // update guest to database 
+            const pushGuest = await updateGuest(guest.guestId, updatedGuest); 
+            // Optionally navigate to a confirmation page
+            // navigate('/confirmation', { state: { guest: updatedGuest, reservation } });
 
         } catch (error) {
             console.error('Error during booking', error);
             alert('Error during booking. Please try again.');
-            return;
         }
     };
-
 
     // handle changes in form inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setGuestInfo({ ...guestInfo, [name]: value });
     };
+    // Format dates for display
+    const formatDate = (date) => {
+        if (!date) return '';
+        const d = new Date(date);
+        return d.toLocaleDateString();
+    };
+
 
     return (
         <div className='main-content'>
@@ -92,8 +112,8 @@ export default function BookingForm() {
                 <p><strong>Price:</strong> ${room.price} per night</p>
                 <p><strong>Check-in Date:</strong> {searchStart.toDateString()}</p>
                 <p><strong>Check-out Date:</strong> {searchEnd.toDateString()}</p>
-                <p><strong>Number of Nights:</strong> {days}</p>
-                <p><strong>Total Cost:</strong> ${(room.price * days).toFixed(2)}</p>
+                <p><strong>Number of Nights:</strong> {numberOfNights}</p>
+                <p><strong>Total Cost:</strong> ${(room.price * numberOfNights).toFixed(2)}</p>
             </div>
             {/* Form for user to input their details */}
             <form className='guest-booking-form form' onSubmit={handleSubmit}>
@@ -110,7 +130,7 @@ export default function BookingForm() {
                     <label htmlFor="phone">Phone:</label>
                     <input type="tel" name="phone" value={guestInfo.phone} onChange={handleChange} required placeholder='Enter your phone number'/>
                 </div>
-                <button type="submit" >Confirm Booking</button>
+                <button type="submit" className='btn btn-primary'>Confirm Booking</button>
             </form> 
         </div>
     );
@@ -120,5 +140,7 @@ export default function BookingForm() {
 // when button is clicked, check if guest already exists
 // if exists, create a reservation instance, and append to the existing guest's reservations
 // if not, create a new guest instance, and then create a reservation instance
-// redirect to a confirmation page
+// reservation instances should be appended to the guest's reservations array 
+// as well as the room's reservations array
+
 

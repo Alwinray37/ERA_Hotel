@@ -11,6 +11,7 @@ import com.erahotel.era_backend.service.GuestService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -58,9 +59,27 @@ public class GuestServiceImpl implements GuestService {
         guest.setPhone(updatedGuest.getPhone());
         guest.setEmail(updatedGuest.getEmail());
 
+        // append new reservations from dto
+        if((updatedGuest.getGuestReservations() != null && !updatedGuest.getGuestReservations().isEmpty())){
+            guest.getGuestReservations().add(updatedGuest.getGuestReservations().get(0));
+        }
+
         Guest savedGuest = guestRepository.save(guest);
         return GuestMapper.mapToGuestDto(savedGuest);
     }
+
+    @Override
+    public GuestDto addReservation(Long guestId, String reservationId) {
+        Guest guest = guestRepository.findById(guestId)
+                .orElseThrow(() -> new ResourceNotFoundException("Guest not found"));
+        
+        guest.getGuestReservations().add(reservationId);
+        guestRepository.save(guest);
+
+        return GuestMapper.mapToGuestDto(guest);
+    }
+
+
 
     @Override
     public void deleteGuest(Long guestId) {
