@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import BookingForm from './components/BookingForm';
 import AboutUs from './components/AboutUs';
 import Admin from './components/Admin';
+import AdminDashboard from "./components/AdminDashboard";
 import ViewReservations from './components/ViewReservations';
 import Confirmation from './components/Confirmation';
 import { getReservationById } from './service/ReservationService';
