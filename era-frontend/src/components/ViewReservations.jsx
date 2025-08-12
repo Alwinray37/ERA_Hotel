@@ -10,20 +10,20 @@ export default function ViewReservations() {
     });
 
     // handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
        e.preventDefault();
 
         // system checks if the email is in the database already
-        getGuestByEmail(formData.email)
-        .then(guest => {
-            if (guest) {
-                console.log('Guest already exists:', guest);
-                // Proceeds with booking using the existing guest data
-            }
-        })
-        .catch (error => {
-            console.error('Error fetching guest:', error);
-        });
+        const guest = await getGuestByEmail(formData.email);
+        if(!guest){
+            // if guest does not exist
+            alert("Guest does not exist");
+        }else{
+            console.log("guest exist: ", guest)
+        }
+
+        // grab the reservation num, save it, and check if resEmail == getGuestByEmail
+
     }
 
     const handleChange = (e) => {
