@@ -22,7 +22,7 @@ export default function BookingSearch({ handleSearch }) {
     <>
       {/* Hero Section with background image */}
       <section className="hero-section">
-        <div className="hero-overlay d-flex justify-content-center align-items-center">
+        <div className="hero-overlay d-flex flex-column justify-content-center align-items-center">
 			<h1>Welcome to ERA Hotel</h1>
 			<p>Your comfort is our <strong>priority</strong>.</p>
 
