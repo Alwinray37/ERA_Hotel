@@ -1,22 +1,3 @@
-/*>
-  <html>
-  <head>
-  <style>
-  body {
-    background-color: lightblue;
-  }
-  </style>
-  </head>
-  <body>
-
-  <h1>Hello World!</h1>
-
-  <p>This page has a light blue background color!</p>
-
-  </body>
-  </html>
-*/
-
 .view-res-form{
     background: lightblue;
     border: 2px solid black;
@@ -29,4 +10,32 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+
+{ <div class="bg-primary">This div has a primary background color.</div>
+<div style="background-color: blue;">This div has a blue background.</div>
+/* In your custom.css file */
+.my-custom-background {
+  background-color: blue;
+  <div class="my-custom-background">This div has a blue background.</div>
+}
+
+/*>
+   <html>
+   <head>
+   <style>
+   body {
+     background-color: lightblue;
+   }
+   </style>
+   </head>
+   <body>
+
+   <h1>Hello World!</h1>
+
+   <p>This page has a light blue background color!</p>
+
+   </body>
+   </html>
+ */
 }
