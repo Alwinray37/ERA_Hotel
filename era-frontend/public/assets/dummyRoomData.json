@@ -1,0 +1,77 @@
+[
+    {
+    "roomNumber": 101,
+    "roomType": "Single",
+    "nightlyPrice": 110.99,
+    "maxOccupancy": 2,
+    "roomDescription": "Spacious single room with city view, queen beds, and modern amenities.",
+    "roomAmenities": [
+        "WiFi",
+        "Air Conditioning"
+    ],
+    "isAvailable": true,
+    "reservations": [
+        { "start": "2025-08-10", "end": "2025-08-12", "reservationId": "RES12345" },
+        { "start": "2025-08-15", "end": "2025-08-18", "reservationId": "RES12346" }
+    ]
+    },
+    {
+    "roomNumber": 202,
+    "roomType": "Double",
+    "nightlyPrice": 220.00,
+    "maxOccupancy": 4,
+    "roomDescription": "Comfortable double room with two queen beds, perfect for families.",
+    "roomAmenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Mini Fridge"
+    ],
+    "reservations": [
+        { "start": "2025-08-10", "end": "2025-08-12", "reservationId": "RES12348" },
+        { "start": "2025-08-15", "end": "2025-08-18", "reservationId": "RES12343" }
+    ]
+    },
+    {
+    "roomNumber": 303,
+    "roomType": "Suite",
+    "nightlyPrice": 350.00,
+    "maxOccupancy": 6,
+    "roomDescription": "Luxurious suite with a separate living area and stunning views.",
+    "roomAmenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Mini Fridge",
+        "Coffee Maker"
+    ],
+    "reservations": []
+    },
+    {
+    "roomNumber": 309,
+    "roomType": "Single",
+    "nightlyPrice": 180.00,
+    "maxOccupancy": 2,
+    "roomDescription": "Cozy single room with a king bed and modern decor.",
+    "roomAmenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Coffee Maker"
+    ],
+    "reservations": []
+    },
+    {
+    "roomNumber": 310,
+    "roomType": "Double",
+    "nightlyPrice": 220.00,
+    "isAvailable": false,
+    "maxOccupancy": 4,
+    "roomDescription": "Spacious double room with two queen beds and a city view.",
+    "roomAmenities": [
+        "WiFi",
+        "Air Conditioning",
+        "Mini Fridge"
+    ],
+    "reservations": [
+        { "start": "2025-08-20", "end": "2025-08-25", "reservationId": "RES12349" }
+    ]
+    }
+]

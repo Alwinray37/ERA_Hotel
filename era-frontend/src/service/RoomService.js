@@ -11,3 +11,22 @@ export const listRooms = async () => {
     throw error;
   }
 };
+
+export const getRoom = async (roomId) => {
+    try{
+        const res = await axios.get(`${urlbase}/${roomId}`);
+        return res.data;
+    }catch(err){
+        console.error(err);
+    }
+}
+
+export const updateRoom = async (roomId, updatedRoom) => {
+    try {
+    const response = await axios.put(`${urlbase}/${roomId}`, updatedRoom);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating room:', error);
+    throw error;
+  }
+}

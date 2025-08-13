@@ -18,15 +18,19 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
+<<<<<<< HEAD
 
     @Column(nullable = false, unique = true)
+=======
+    
+>>>>>>> 539ae98d14fa3b1de7ad69506803434caf165626
     private String roomNumber;
     @Column(length = 2000)
     private String description;
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reservation> roomReservations; // tracks all reservations for this room
+    @ElementCollection
+    private List<String> roomReservations; // tracks all reservations for this room
 
     // Lombok is used here to automatically generate boilerplate code like getters,
     // setters,

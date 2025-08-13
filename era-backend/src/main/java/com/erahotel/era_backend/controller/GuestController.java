@@ -1,6 +1,9 @@
 package com.erahotel.era_backend.controller;
 
 import com.erahotel.era_backend.dto.GuestDto;
+import com.erahotel.era_backend.dto.RoomDto;
+import com.erahotel.era_backend.entity.Guest;
+import com.erahotel.era_backend.exception.ResourceNotFoundException;
 import com.erahotel.era_backend.service.GuestService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,13 +26,18 @@ public class GuestController {
         return new ResponseEntity<>(savedGuest, HttpStatus.CREATED);
     }
 
+<<<<<<< HEAD
     //Build Get Guest REST API
+=======
+    // get by Id
+>>>>>>> 539ae98d14fa3b1de7ad69506803434caf165626
     @GetMapping("{id}")
     public ResponseEntity<GuestDto> getGuestById(@PathVariable("id") Long guestId){
         GuestDto guestDto = guestService.getGuestById(guestId);
         return ResponseEntity.ok(guestDto);
     }
 
+<<<<<<< HEAD
     //Build Get ALl Guests REST API
     //All of the below is typed by me -Ryley
     @GetMapping
@@ -52,6 +60,43 @@ public class GuestController {
     public ResponseEntity<String> deleteGuest(@PathVariable("id") Long guestId){
         guestService.deleteGuest(guestId);
         return ResponseEntity.ok("Guest deleted successfully.");
+=======
+    // get by email
+    @GetMapping("/email/{email}")
+    public ResponseEntity<GuestDto> getGuestByEmail(@PathVariable("email") String email){
+        GuestDto guestDto = guestService.getGuestByEmail(email);
+        return ResponseEntity.ok(guestDto);
+    }
+
+    // get all guests
+    @GetMapping
+    public ResponseEntity<List<GuestDto>> getAllGuests(){
+        List<GuestDto> guests = guestService.getAllGuests();
+        return ResponseEntity.ok(guests);
+    }
+
+    // build delete room delete rest api
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteGuest(@PathVariable("id") Long guestId){
+        guestService.deleteGuest(guestId);
+        return ResponseEntity.ok("Guest Deleted Successfully.");
+    }
+
+    // put mapping for updating guest info
+    // used for when appending the reservation to the guestReservations list
+    @PutMapping("/{id}")
+    public ResponseEntity<GuestDto> updateGuest(@PathVariable("id") Long guestId, @RequestBody GuestDto updatedGuest){
+        GuestDto guestDto =  guestService.updateGuest(guestId, updatedGuest);
+        return ResponseEntity.ok(guestDto);
+    }
+    // Append a reservation to guestReservations
+    @PostMapping("/{id}/reservations")
+    public ResponseEntity<GuestDto> addReservationToGuest(
+            @PathVariable("id") Long guestId,
+            @RequestBody String reservationId) {
+        GuestDto updatedGuest = guestService.addReservation(guestId, reservationId.replace("\"", ""));
+        return ResponseEntity.ok(updatedGuest);
+>>>>>>> 539ae98d14fa3b1de7ad69506803434caf165626
     }
 
 }

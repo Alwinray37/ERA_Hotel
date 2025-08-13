@@ -7,6 +7,7 @@
   align-items: center;
   background-color: none;
 }
+
 body {
   margin: 0;
   color: rgb(42, 42, 42);
@@ -71,6 +72,14 @@ body {
   padding: 0;
 }
 
+.hero-overlay {
+  background-image: url('/assets/hero-background.jpg');
+  background-size: cover;      /* make it fill the container */
+  background-position: center; /* center the image */
+  background-repeat: no-repeat;
+  /* background-color: blue; */
+}
+
 .hero-section h1,
 .hero-section p {
   margin: 0.5rem 0;
@@ -119,6 +128,7 @@ body {
   width: 80%;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .room-card button {
   background-color: #213547;
   color: white;
@@ -127,6 +137,7 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
+
 .room-card button:hover {
   background-color: #1a7def;
   transition: background-color 0.3s ease;

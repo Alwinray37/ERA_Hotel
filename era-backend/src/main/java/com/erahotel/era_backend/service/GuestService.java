@@ -10,4 +10,7 @@ public interface GuestService {
     List<GuestDto> getAllGuests();
     GuestDto updateGuest(Long guestId, GuestDto updatedGuest);
     void deleteGuest(Long guestId);
+    GuestDto getGuestByEmail(String email);
+    GuestDto addReservation(Long guestId, String reservationId);
+
 }

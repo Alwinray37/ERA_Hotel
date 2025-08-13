@@ -112,8 +112,12 @@
 
 /* Optional: darken image or blur for readability */
 .hero-overlay {
-  background-color: rgba(255, 255, 255, 0.85);
-  max-width: 800px;
+  /* background-color: rgba(255, 255, 255, 0.85); */
+  background-image: url('/assets/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-width: 800px;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 12px;
