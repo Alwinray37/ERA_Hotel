@@ -9,10 +9,26 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import BookingForm from './components/BookingForm';
 import AboutUs from './components/AboutUs';
 import Admin from './components/Admin';
+import AdminDashboard from "./components/AdminDashboard";
 import ViewReservations from './components/ViewReservations';
 import Confirmation from './components/Confirmation';
 import { getReservationById } from './service/ReservationService';
-import ViewGuestRes from './components/ViewGuestReservation'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import AdminLogin from "./components/AdminLogin";
+import AdminDashboard from "./components/AdminDashboard";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/admin-login" replace />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
@@ -113,7 +129,6 @@ function AppContent() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/view-reservation" element={<ViewReservations />} />
                 <Route path="/confirmation" element={<Confirmation />} />
-                <Route path='/view-guest-reservation' element={<ViewGuestRes />} />
             </Routes>
 
             <Footer />
