@@ -22,7 +22,7 @@ public class EraBackendApplication {
 			if (adminRepository.findByEmail(defaultAdminEmail).isEmpty()) {
 				Admin admin = new Admin();
 				admin.setEmail(defaultAdminEmail);
-				admin.setEmail("Alwin Roble");
+				admin.setName("Alwin Roble");
 				admin.setPassword("password");
 				adminRepository.save(admin);
 			}
