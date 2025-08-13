@@ -29,7 +29,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Era Hotel. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} ERA Hotel. All rights reserved.</p>
       </div>
     </footer>
   );
