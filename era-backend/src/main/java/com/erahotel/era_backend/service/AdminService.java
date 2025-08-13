@@ -1,8 +1,12 @@
 package com.erahotel.era_backend.service;
 
-import com.erahotel.era_backend.dto.AdminLoginRequestDto;
-import com.erahotel.era_backend.dto.AdminResponseDto;
+import com.erahotel.era_backend.dto.AdminDto;
+
+import java.util.List;
 
 public interface AdminService {
-    AdminResponseDto login(AdminLoginRequestDto req);
+
+    AdminDto getByAdminEmail(String email);
+
+    List<AdminDto> getAllAdmins();
 }

@@ -5,7 +5,10 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminLoginRequestDto {
+
+public class AdminDto {
+    private Long adminId;
+    private String name;
     private String email;
     private String password;
 }

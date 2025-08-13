@@ -7,18 +7,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "admins") // table name in the database
+@Table(name = "admins") // specifies the table name in mySql
+
 public class Admin {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto-increment primary key
-    private Long adminId; // column: admin_id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long adminId;
 
-    private String name; // column: name
+    private String name;
+    private String email;
+    private String password;
 
-    @Column(nullable = false, unique = true)
-    private String email; // column: email (must be unique)
-
-    @Column(nullable = false)
-    private String password; // column: password (plain text in this simple version)
 }
-
