@@ -101,12 +101,14 @@ function AppContent() {
     return (
         <div className='app'>
             <Navbar />
-            <div className="content">
-                {location.pathname === '/' && ( <BookingSearch handleSearch={handleSearch} /> )}
-                {<ViewRooms availableRooms={availableRooms} sStart={searchStart} sEnd={searchEnd} />}
-            </div>
+            
             <Routes>
-                {/* <Route path="/" element={<ViewRooms availableRooms={availableRooms} sStart={searchStart} sEnd={searchEnd} />} /> */}
+                <Route path="/" element={
+                    <div className='content'>
+                        <BookingSearch handleSearch={handleSearch} /> 
+                        <ViewRooms availableRooms={availableRooms} sStart={searchStart} sEnd={searchEnd} />
+                    </div>
+                    } />
                 <Route path="/book/:roomId" element={<BookingForm />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/view-reservation" element={<ViewReservations />} />
