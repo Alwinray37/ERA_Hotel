@@ -119,8 +119,8 @@ export default function BookingForm() {
 
 
     return (
-        <div className='main-content'>
-            <div className='booking-details'>
+        <div className='container'>
+            <div className='booking-details container border rounded-3 p-4 shadow'>
                 <h2>Booking For Room {room.roomNumber}</h2>
                 <p><strong>Price:</strong> ${room.price} per night</p>
                 <p><strong>Check-in Date:</strong> {searchStart.toDateString()}</p>
@@ -129,21 +129,21 @@ export default function BookingForm() {
                 <p><strong>Total Cost:</strong> ${(room.price * numberOfNights).toFixed(2)}</p>
             </div>
             {/* Form for user to input their details */}
-            <form className='guest-booking-form form' onSubmit={handleSubmit}>
+            <form className='guest-booking-form form border p-4 d-flex gap-2 rounded shadow  flex-column justify-content-center align-items-center' onSubmit={handleSubmit}>
                 <h3>Guest Information</h3>
                 <div>
                     <label htmlFor="name">Name:</label>
-                    <input type="text" name="name" value={guestInfo.name} onChange={handleChange} required placeholder='Enter your name'/>
+                    <input className='form-control' type="text" name="name" value={guestInfo.name} onChange={handleChange} required placeholder='Enter your name'/>
                 </div>
                 <div>
                     <label htmlFor="email">Email:</label>
-                    <input type="email" name="email" value={guestInfo.email} onChange={handleChange} required placeholder='Enter your email'/>
+                    <input className='form-control' type="email" name="email" value={guestInfo.email} onChange={handleChange} required placeholder='Enter your email'/>
                 </div>
                 <div>
                     <label htmlFor="phone">Phone:</label>
-                    <input type="tel" name="phone" value={guestInfo.phone} onChange={handleChange} required placeholder='Enter your phone number'/>
+                    <input className='form-control' type="tel" name="phone" value={guestInfo.phone} onChange={handleChange} required placeholder='Enter your phone number'/>
                 </div>
-                <button type="submit" className='btn btn-primary'>Confirm Booking</button>
+                <button type="submit" className='btn btn-primary w-1'>Confirm Booking</button>
             </form> 
         </div>
     );

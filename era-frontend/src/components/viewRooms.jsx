@@ -15,10 +15,10 @@ function ViewRooms({ availableRooms, sStart, sEnd}) {
     };
 
     return (
-        <div className="room-cards-container container">
+        <div className="room-cards-container container  p-2 d-flex flex-column">
             {availableRooms && availableRooms.length > 0 ? (
                 availableRooms.map((room) => (
-                    <div className="room-card" key={room.roomNumber}>
+                    <div className="room-card card" key={room.roomNumber}>
                         <h3>Room {room.roomNumber}</h3>
                         <p><strong>Price:</strong> ${room.price}</p>
                         <p><strong>Description:</strong> {room.description}</p>
