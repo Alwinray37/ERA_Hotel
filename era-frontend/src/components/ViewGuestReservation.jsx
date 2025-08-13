@@ -58,7 +58,7 @@ export default function ViewGuestRes(){
             }
         };
         if(reservation) fetchGuest();
-    }, [reservation]);
+    }, [reservation])
 
 
     // loading message before data is loaded
@@ -72,7 +72,7 @@ export default function ViewGuestRes(){
 
     return(
         <div className="content">
-            <div className="container shadow p-4 ">
+            <div className="container  shadow p-4 ">
                 <h2>Guest Reservation Details</h2>
             <p>Name: {guest.name}</p>
             <p>Email: {reservation.guestEmail}</p>

@@ -1,9 +1,7 @@
-/* .view-res-form{
-    background: lightblue;
-    border: 2px solid black;
-
+.view-res-form{
+    width: 400px;
 }
-.rform{
+/* .rform{
     box-shadow: 2px 2px 2px 2px gray;
     border-radius: 1rem;
     padding: 1rem;
