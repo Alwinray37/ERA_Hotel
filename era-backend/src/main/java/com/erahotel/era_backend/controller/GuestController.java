@@ -1,9 +1,6 @@
 package com.erahotel.era_backend.controller;
 
 import com.erahotel.era_backend.dto.GuestDto;
-import com.erahotel.era_backend.dto.RoomDto;
-import com.erahotel.era_backend.entity.Guest;
-import com.erahotel.era_backend.exception.ResourceNotFoundException;
 import com.erahotel.era_backend.service.GuestService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

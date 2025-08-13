@@ -8,7 +8,6 @@ import { listRooms } from './service/RoomService';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import BookingForm from './components/BookingForm';
 import AboutUs from './components/AboutUs';
-import Admin from './components/Admin';
 import ViewReservations from './components/ViewReservations';
 import Confirmation from './components/Confirmation';
 import { getReservationById } from './service/ReservationService';
@@ -99,8 +98,6 @@ function AppContent() {
         console.log('Filtered rooms:', filteredRooms);
     };
 
-
-
     return (
         <div className='app'>
             <Navbar />
@@ -112,7 +109,6 @@ function AppContent() {
                 {/* <Route path="/" element={<ViewRooms availableRooms={availableRooms} sStart={searchStart} sEnd={searchEnd} />} /> */}
                 <Route path="/book/:roomId" element={<BookingForm />} />
                 <Route path="/about" element={<AboutUs />} />
-                <Route path="/admin" element={<Admin />} />
                 <Route path="/view-reservation" element={<ViewReservations />} />
                 <Route path="/confirmation" element={<Confirmation />} />
                 <Route path='/view-guest-reservation' element={<ViewGuestRes />} />
@@ -126,9 +122,9 @@ function AppContent() {
 // Main App component that wraps AppContent with Router
 function App(){
     return (
-        <Router>
+    
             <AppContent />
-        </Router>
+    
     )
 }
 export default App;
