@@ -58,15 +58,15 @@ export default function ViewReservations() {
     }
 
     return (
-        <div className="content ">
-            <form onSubmit = {handleSubmit} className = "container d-flex flex-column gap-2 shadow p-4">
+        <div className="content">
+            <form onSubmit = {handleSubmit} className = "view-res-form  m-auto mt-4  d-flex flex-column gap-2 shadow p-4">
                 <h3>View Reservations</h3>
                 <label>Email:</label>
                 <input className='form-control' placeholder="Enter Email" type="email" name="email" value={formData.email} onChange={handleChange}/>
 
                 <label>Reservation Number:</label>
                 <input className='form-control' placeholder="Enter Reservation Number" type="text" name="reservationNumber" value={formData.reservationNumber} onChange={handleChange}/>
-                 <button className='btn btn-primary mb-2' type="submit">Submit</button>
+                 <button className='btn btn-primary mb-2' type="submit">Find Reservation</button>
             </form>
         </div>
 

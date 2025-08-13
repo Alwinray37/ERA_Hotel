@@ -7,10 +7,12 @@ export default function AdminDashboard() {
   };
 
   return (
+      <div className ="content">
     <div style={{ maxWidth: 720, margin: "2rem auto" }}>
       <h2>Admin Dashboard</h2>
       <p>Welcome, {admin?.name} ({admin?.email})</p>
       <button onClick={logout}>Logout</button>
+    </div>
     </div>
   );
 }

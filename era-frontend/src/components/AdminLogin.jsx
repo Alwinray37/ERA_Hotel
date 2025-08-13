@@ -22,6 +22,7 @@ export default function AdminLogin() {
   };
 
   return (
+  <div className ="content">
     <form onSubmit={handleSubmit} style={{ maxWidth: 360, margin: "2rem auto", display: "grid", gap: 12 }}>
       <h2>Admin Login</h2>
       <input type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -29,6 +30,7 @@ export default function AdminLogin() {
       <button type="submit">Log In</button>
       {msg && <p>{msg}</p>}
     </form>
+  </div>
   );
 }
 
