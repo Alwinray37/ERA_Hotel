@@ -3,8 +3,11 @@ import React, {useState} from 'react';
 import { getGuestByEmail } from '../service/GuestService';
 import { getReservationById } from "../service/ReservationService"
 import '../styles/ViewReservations.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function ViewReservations() {
+    const navigate = useNavigate();
+
     //stuff to form the booking forms
     const [formData, setFormData] = useState({
         email: "",
@@ -25,21 +28,28 @@ export default function ViewReservations() {
         }
 
         // grab the reservation num, save it, and check if resEmail == getGuestByEmail
-        const resNumber = await getReservationById(formData.reservationNumber);
-        if(!resNumber){
-                    // if guest does not exist
-                    alert("Reservation does not exist");
-        }else{
-            console.log("Reservation Number exists: ", resNumber)
+        let reservation;
+        try{
+            reservation = await getReservationById(formData.reservationNumber)
+            if(!reservation){
+            // if guest does not exist
+            alert("Reservation does not exist");
+            }else{
+                console.log("Reservation Number exists: ", reservation)
+            };
+        } catch{
+            alert("Reservation Does Not Exist.")
         }
 
-        // validate if guest.guestEmail == resNumber.guestEmail
-        if(guest.email == resNumber.guestEmail){
+        // validate if guest.guestEmail == reservation.guestEmail
+        if(guest.email == reservation.guestEmail){
             alert("Match");
+
+            // navigate to viewGuestRes component
+            navigate('/view-guest-reservation', { state: { email: formData.email, resID : formData.reservationNumber } });
         } else {
             alert("No match");
         }
-
     }
 
     const handleChange = (e) => {

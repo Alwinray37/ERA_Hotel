@@ -31,6 +31,14 @@ public class RoomController {
         return ResponseEntity.ok(roomDto);
     }
 
+    // get room by rommNumber
+    @GetMapping("/room/{roomNumber}")
+    public ResponseEntity<RoomDto> getRoomByNumber(@PathVariable("roomNumber") String roomNumber){
+        RoomDto roomDto = roomService.getRoomByNumber(roomNumber);
+        return ResponseEntity.ok(roomDto);
+    }
+
+
     // build get all rooms rest api
     @GetMapping
     public ResponseEntity<List<RoomDto>> getAllRooms(){

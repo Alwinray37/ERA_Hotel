@@ -17,4 +17,6 @@ public interface RoomService {
     void deleteRoom(Long roomId);
 
     RoomDto addReservation(Long roomId, String replace);
+
+    RoomDto getRoomByNumber(String roomNumber);
 }

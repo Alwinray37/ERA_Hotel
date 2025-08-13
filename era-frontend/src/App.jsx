@@ -12,6 +12,7 @@ import Admin from './components/Admin';
 import ViewReservations from './components/ViewReservations';
 import Confirmation from './components/Confirmation';
 import { getReservationById } from './service/ReservationService';
+import ViewGuestRes from './components/ViewGuestReservation'
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
@@ -112,6 +113,7 @@ function AppContent() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/view-reservation" element={<ViewReservations />} />
                 <Route path="/confirmation" element={<Confirmation />} />
+                <Route path='/view-guest-reservation' element={<ViewGuestRes />} />
             </Routes>
 
             <Footer />

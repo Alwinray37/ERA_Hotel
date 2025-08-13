@@ -6,7 +6,7 @@ import { set } from 'date-fns';
 import { getRoom, updateRoom } from '../service/RoomService';
 
 export default function BookingForm() {
-    const location = useLocation();
+    const location = useLocation(); // to pull out values (room, searchStart, searchEnd) that were explicitly sent when navigating to this page.
     const navigate = useNavigate();
 
     const room = location.state?.room;                  // Get the room data passed from ViewRooms

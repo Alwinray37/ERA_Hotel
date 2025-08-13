@@ -35,6 +35,12 @@ public class RoomServiceImpl implements RoomService {
                 .orElseThrow(() -> new ResourceNotFoundException("Room is not found with the given ID" + roomId));
         return RoomMapper.mapToRoomDto(room);
     }
+    @Override
+    public RoomDto getRoomByNumber(String roomNum){
+        Room room = roomRepository.findByRoomNumber(roomNum)
+                .orElseThrow(() -> new ResourceNotFoundException("Room is not found with the given room number" + roomNum));
+        return RoomMapper.mapToRoomDto(room);
+    }
 
     @Override
     public List<RoomDto> getAllRooms() {

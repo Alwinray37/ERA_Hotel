@@ -21,6 +21,15 @@ export const getRoom = async (roomId) => {
     }
 }
 
+export const getRoomByNumber = async (roomNum) => {
+  try{
+    const res = await axios.get(`${urlbase}/room/${roomNum}`);
+    return res.data;
+  } catch(err){
+    console.log(err);
+  }
+}
+
 export const updateRoom = async (roomId, updatedRoom) => {
     try {
     const response = await axios.put(`${urlbase}/${roomId}`, updatedRoom);
