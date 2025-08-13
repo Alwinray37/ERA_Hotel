@@ -80,7 +80,7 @@ export default function ViewGuestRes(){
             <p>Check-in: {new Date(reservation.startDate).toDateString()}</p>
             <p>Check-out: {new Date(reservation.endDate).toDateString()}</p>
 
-            <div className="button-container">
+            <div className="button-container d-flex gap-2 justify-content-around w-2">
                 <button className="btn btn-warning">Modify</button>
                 <button className="btn btn-danger">Cancel</button>
             </div>
