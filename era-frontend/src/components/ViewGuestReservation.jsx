@@ -71,8 +71,9 @@ export default function ViewGuestRes(){
     }
 
     return(
-        <div className="main-content">
-            <h2>Guest Reservation Details</h2>
+        <div className="content">
+            <div className="container shadow p-4 ">
+                <h2>Guest Reservation Details</h2>
             <p>Name: {guest.name}</p>
             <p>Email: {reservation.guestEmail}</p>
             <p>Room Number: {reservation.roomNumber}</p>
@@ -80,9 +81,10 @@ export default function ViewGuestRes(){
             <p>Check-in: {new Date(reservation.startDate).toDateString()}</p>
             <p>Check-out: {new Date(reservation.endDate).toDateString()}</p>
 
-            <div className="button-container d-flex gap-2 justify-content-around w-2">
-                <button className="btn btn-warning">Modify</button>
-                <button className="btn btn-danger">Cancel</button>
+            <div className="button-container contianer d-flex gap-4 justify-content-start w-2">
+                <button className="btn btn-warning">Modify Reservation</button>
+                <button className="btn btn-danger">Cancel Reservation</button>
+            </div>
             </div>
         </div>
     )
