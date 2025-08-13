@@ -11,6 +11,34 @@
     flex-direction: column;
     justify-content: space-evenly;
 }
+/*stuff I did below IDK where to put it*/
+{ <div class="bg-primary">This div has a primary background color of blue.</div>
+<div style="background-color: blue;">Lets find your reservaton.</div>
+/* In your custom.css file */
+.my-custom-background {
+  background-color: blue;
+  <div class="my-custom-background">This div has a blue background.</div>
+}
+
+/*>
+   <html>
+   <head>
+   <style>
+   body {
+     background-color: lightblue;
+   }
+   </style>
+   </head>
+   <body>
+
+   <h1>Hello World!</h1>
+
+   <p>This page has a light blue background color!</p>
+
+   </body>
+   </html>
+ */
+}
 
 { <div class="bg-primary">This div has a primary background color.</div>
 <div style="background-color: blue;">This div has a blue background.</div>
