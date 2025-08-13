@@ -9,12 +9,8 @@ export default function AdminDashboard() {
   return (
     <div style={{ maxWidth: 720, margin: "2rem auto" }}>
       <h2>Admin Dashboard</h2>
-      <p>
-        Signed in as: <b>{admin?.name} ({admin?.email})</b>
-      </p>
+      <p>Welcome, {admin?.name} ({admin?.email})</p>
       <button onClick={logout}>Logout</button>
-
-      {/* Future: add reservations list here */}
     </div>
   );
 }

@@ -13,6 +13,22 @@ import AdminDashboard from "./components/AdminDashboard";
 import ViewReservations from './components/ViewReservations';
 import Confirmation from './components/Confirmation';
 import { getReservationById } from './service/ReservationService';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import AdminLogin from "./components/AdminLogin";
+import AdminDashboard from "./components/AdminDashboard";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/admin-login" replace />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
