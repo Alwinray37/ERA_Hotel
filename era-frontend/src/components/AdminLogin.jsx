@@ -11,21 +11,22 @@ export default function AdminLogin() {
         password: ""
     });
     const [admins, setAdmins] = useState([]);
-    const [admin, setAdmin] = useState(null);
     useEffect( () => {
         listAdmins()
             .then(data => {
                 setAdmins(data);
-                console.log("Admins: ", admins);
             })
             .catch( err => {
-                console.log("Error fetching admins from db" );
-            })
-        }, []);
+                console.log("Error fetching admins from db", err);
+            });
+    }, []);
+
+    console.log("Admins: ", admins);
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+  
         // get admin email
         const admin = await getAdminByEmail(formData.email);
         if(!admin){
@@ -35,6 +36,10 @@ export default function AdminLogin() {
             if(formData.email === admin.email && formData.password === admin.password)  {
                 console.log("admin info: ", admin);
                 alert("Match");
+
+                // navigate to dashboard
+                navigate("/admin-dashboard");
+
             }  else {
                 alert("no match")
             }
