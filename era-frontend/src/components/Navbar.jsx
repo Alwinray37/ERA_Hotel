@@ -11,7 +11,7 @@ export default function Navbar() {
           }}>Home</Link></li>
         <li><Link to="/view-reservation">My Reservations</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li><Link to='/admin'>Admin</Link></li>
+        <li><Link to='/admin-login'>Admin</Link></li>
       </ul>
     </nav>
   );

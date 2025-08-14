@@ -47,7 +47,7 @@ export const updateReservation = async (id, reservationData) => {
   }
 }
 
-
+// function to append reservation Id to guest reservation list 
 export async function appendResIdToGuest(guestId, reservationId) { 
     try {
         const response = await axios.post(`${urlAppendGuest}/${guestId}/reservations`, reservationId, { headers: { 'Content-Type': 'application/json' }} );
@@ -58,6 +58,7 @@ export async function appendResIdToGuest(guestId, reservationId) {
     }
 }
 
+// function to append reservation Id to room reservations list 
 export const appendResIdToRoom = async (roomId, resId) => {
     try {
         const res = await axios.post(`${urlAppendRoom}/${roomId}/reservations`, resId, {headers: { 'Content-Type': 'application/json' }});
