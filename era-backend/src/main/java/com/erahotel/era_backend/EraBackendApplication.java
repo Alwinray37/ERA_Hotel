@@ -19,6 +19,8 @@ public class EraBackendApplication {
 	public CommandLineRunner initAdmin(AdminRepository adminRepository) {
 		return args -> {
 			String defaultAdminEmail = "alwin@email.com";
+            String farshadEmail = "farshad@email.com";
+
 			if (adminRepository.findByEmail(defaultAdminEmail).isEmpty()) {
 				Admin admin = new Admin();
 				admin.setEmail(defaultAdminEmail);
@@ -26,6 +28,13 @@ public class EraBackendApplication {
 				admin.setPassword("password");
 				adminRepository.save(admin);
 			}
+            if (adminRepository.findByEmail(farshadEmail).isEmpty()) {
+                Admin admin = new Admin();
+                admin.setEmail(farshadEmail);
+                admin.setName("Farshad Azam");
+                admin.setPassword("password");
+                adminRepository.save(admin);
+            }
 		};
 	}
 
