@@ -1,4 +1,4 @@
-/* .view-res-form{
+ /*.view-res-form{
     background: lightblue;
     border: 2px solid black;
 
@@ -11,3 +11,19 @@
     flex-direction: column;
     justify-content: space-evenly;
 } */
+
+/* .view-admin-form{
+    background: yellow;
+    border: 5px solid black;
+
+}
+
+.rform{
+    box-shadow: 5px 5px 5px 5px white;
+    border-radius: 1ren;
+    padding: 1rem;
+    dispay: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+} */
+
