@@ -1,6 +1,8 @@
 package com.erahotel.era_backend.controller;
 
 import com.erahotel.era_backend.dto.AdminDto;
+import com.erahotel.era_backend.dto.AdminReservationSummaryDTO; // added for the dashboard
+import com.erahotel.era_backend.repository.ReservationRepository; // added for the dashboard
 import com.erahotel.era_backend.service.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +27,10 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final ReservationRepository reservationRepository; // added for the dashboard
 
-    /**
-     * Retrieves an admin by their email address.
-     *
-     * @param email the email address of the admin
-     * @return the admin as an {@link AdminDto}
-     */
+
+    // get by email
     @GetMapping("/email/{email}")
     public ResponseEntity<AdminDto> getByAdminEmail(@PathVariable("email") String email) {
         AdminDto adminDto = adminService.getByAdminEmail(email);
@@ -48,4 +47,11 @@ public class AdminController {
         List<AdminDto> admins = adminService.getAllAdmins();
         return ResponseEntity.ok(admins);
     }
+
+    // NEW: Get admin reservation summary for dashboard
+    @GetMapping("/reservations/summary")
+    public List<AdminReservationSummaryDTO> getAdminReservationSummary() {
+        return reservationRepository.findAdminReservationSummaries();
+    }
+
 }

@@ -52,3 +52,14 @@ export const getAdminByEmail = async (email) => {
 //    throw error;
 //  }
 //}
+
+// : get reservation summaries for admin dashboard
+export const listAdminReservationSummaries = async () => {
+  try {
+    const response = await axios.get(`${urlbase}/reservations/summary`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching admin reservation summary:', error);
+    throw error;
+  }
+}
