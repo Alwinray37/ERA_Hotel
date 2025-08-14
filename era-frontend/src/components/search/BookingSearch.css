@@ -10,9 +10,9 @@
 .booking-bar {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: none;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
   padding: 0.75rem 1.5rem;
   gap: 1.5rem;             /* ⬅️ increase spacing between input and button */
   height: 56px;
@@ -24,14 +24,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-}
-
-/* The word "Dates" shown permanently */
-.date-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-left: 0.2rem;
 }
 
 /* Calendar icon + DatePicker input wrapper */
@@ -99,25 +91,23 @@
 
 /* Hero section with background image */
 .hero-section {
-  background-image: url('/your/image/path.jpg'); /* Keep your actual path here */
+  background-image: url('/assets/hero-background.jpg'); /*Keep your actual path here*/
   background-size: cover;
   background-position: center;
-  height: 500px; /* ⬅️ Increase this to fully show the pool image */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 1rem;
-  position: relative;
+  padding: 2rem;
+  border-radius: 10px;
 }
 
 /* Optional: darken image or blur for readability */
 .hero-overlay {
-  /* background-color: rgba(255, 255, 255, 0.85); */
-  background-image: url('/assets/hero-background.jpg');
+  background-color: rgba(255, 255, 255, 0.80);
+  /* background-image: url(''); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-width: 800px;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 12px;

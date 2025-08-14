@@ -58,14 +58,14 @@ export default function ViewReservations() {
     }
 
     return (
-        <div className="main-content ">
-            <form onSubmit = {handleSubmit} className = "view-res-form rform">
+        <div className="content ">
+            <form onSubmit = {handleSubmit} className = "container d-flex flex-column gap-2 shadow p-4">
                 <h3>View Reservations</h3>
                 <label>Email:</label>
-                <input placeholder="Enter Email" type="email" name="email" value={formData.email} onChange={handleChange}/>
+                <input className='form-control' placeholder="Enter Email" type="email" name="email" value={formData.email} onChange={handleChange}/>
 
                 <label>Reservation Number:</label>
-                <input placeholder="Enter Reservation Number" type="text" name="reservationNumber" value={formData.reservationNumber} onChange={handleChange}/>
+                <input className='form-control' placeholder="Enter Reservation Number" type="text" name="reservationNumber" value={formData.reservationNumber} onChange={handleChange}/>
                  <button className='btn btn-primary mb-2' type="submit">Submit</button>
             </form>
         </div>
