@@ -9,6 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for managing rooms.
+ * <p>
+ * Provides endpoints for creating, retrieving, updating, and deleting rooms,
+ * as well as managing room reservations.
+ * </p>
+ *
+ * @author Alwin Roble
+ * @see com.erahotel.era_backend.dto.RoomDto
+ * @see com.erahotel.era_backend.service.RoomService
+ */
 @CrossOrigin("*")
 @AllArgsConstructor
 @RestController
@@ -17,50 +28,85 @@ public class RoomController {
 
     private RoomService roomService;
 
-    // build Add Room REST Api
+    /**
+     * Creates a new room.
+     *
+     * @param roomDto the data transfer object containing room information
+     * @return the created room as a {@link RoomDto}
+     */
     @PostMapping
-    public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto roomDto){
+    public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto roomDto) {
         RoomDto savedRoom = roomService.createRoom(roomDto);
         return new ResponseEntity<>(savedRoom, HttpStatus.CREATED);
     }
 
-    // build GET room REST api
+    /**
+     * Retrieves a room by its unique ID.
+     *
+     * @param roomId the ID of the room to retrieve
+     * @return the room as a {@link RoomDto}
+     */
     @GetMapping("{id}")
-    public ResponseEntity<RoomDto> getRoomById(@PathVariable("id") Long roomId){
+    public ResponseEntity<RoomDto> getRoomById(@PathVariable("id") Long roomId) {
         RoomDto roomDto = roomService.getRoomById(roomId);
         return ResponseEntity.ok(roomDto);
     }
 
-    // get room by rommNumber
+    /**
+     * Retrieves a room by its room number.
+     *
+     * @param roomNumber the room number to search for
+     * @return the room as a {@link RoomDto}
+     */
     @GetMapping("/room/{roomNumber}")
-    public ResponseEntity<RoomDto> getRoomByNumber(@PathVariable("roomNumber") String roomNumber){
+    public ResponseEntity<RoomDto> getRoomByNumber(@PathVariable("roomNumber") String roomNumber) {
         RoomDto roomDto = roomService.getRoomByNumber(roomNumber);
         return ResponseEntity.ok(roomDto);
     }
 
-
-    // build get all rooms rest api
+    /**
+     * Retrieves all rooms.
+     *
+     * @return a list of all rooms as {@link RoomDto} objects
+     */
     @GetMapping
-    public ResponseEntity<List<RoomDto>> getAllRooms(){
+    public ResponseEntity<List<RoomDto>> getAllRooms() {
         List<RoomDto> rooms = roomService.getAllRooms();
         return ResponseEntity.ok(rooms);
     }
 
-    // build update room rest api
+    /**
+     * Updates the information of an existing room.
+     *
+     * @param roomId      the ID of the room to update
+     * @param updatedRoom the updated room data
+     * @return the updated room as a {@link RoomDto}
+     */
     @PutMapping("{id}")
-    public ResponseEntity<RoomDto> updateRoom(@PathVariable("id") Long roomId,@RequestBody RoomDto updatedRoom){
-        RoomDto roomDto =  roomService.updateRoom(roomId, updatedRoom);
+    public ResponseEntity<RoomDto> updateRoom(@PathVariable("id") Long roomId, @RequestBody RoomDto updatedRoom) {
+        RoomDto roomDto = roomService.updateRoom(roomId, updatedRoom);
         return ResponseEntity.ok(roomDto);
     }
 
-    // build delete room delete rest api
+    /**
+     * Deletes a room by its unique ID.
+     *
+     * @param roomId the ID of the room to delete
+     * @return a confirmation message
+     */
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteRoom(@PathVariable("id") Long roomId){
+    public ResponseEntity<String> deleteRoom(@PathVariable("id") Long roomId) {
         roomService.deleteRoom(roomId);
         return ResponseEntity.ok("Room Deleted Successfully.");
     }
 
-    // append resId to room res. list
+    /**
+     * Adds a reservation ID to the room's list of reservations.
+     *
+     * @param roomId        the ID of the room
+     * @param reservationId the reservation ID to add
+     * @return the updated room as a {@link RoomDto}
+     */
     @PostMapping("/{id}/reservations")
     public ResponseEntity<RoomDto> addReservationToRoom(
             @PathVariable("id") Long roomId,

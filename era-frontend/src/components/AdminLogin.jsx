@@ -6,24 +6,27 @@ import { useNavigate } from 'react-router-dom';
 export default function AdminLogin() {
     const navigate = useNavigate();
 
+    // data from the form are saved here
+    // updated by handleChange function
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
-    const [admins, setAdmins] = useState([]);
-    useEffect( () => {
-        listAdmins()
-            .then(data => {
-                setAdmins(data);
-            })
-            .catch( err => {
-                console.log("Error fetching admins from db", err);
-            });
-    }, []);
 
-    console.log("Admins: ", admins);
+    // testing to see if we can get a list of the admins
+    // const [admins, setAdmins] = useState([]);
+    // useEffect( () => {
+    //     listAdmins()
+    //         .then(data => {
+    //             setAdmins(data);
+    //         })
+    //         .catch( err => {
+    //             console.log("Error fetching admins from db", err);
+    //         });
+    // }, []);
+    // console.log("Admins: ", admins);
 
-
+    // function to handle login button
     const handleSubmit = async (e) => {
         e.preventDefault();
   
@@ -35,13 +38,13 @@ export default function AdminLogin() {
             console.log("admin found: ", admin);
             if(formData.email === admin.email && formData.password === admin.password)  {
                 console.log("admin info: ", admin);
-                alert("Match");
+                // alert("Match");
 
                 // navigate to dashboard
                 navigate("/admin-dashboard");
 
             }  else {
-                alert("no match")
+                alert("Email and Password does not match");
             }
         }
     };
@@ -54,7 +57,7 @@ export default function AdminLogin() {
 
     return (
         <div className="content">
-            <form onSubmit={handleSubmit} className="container d-flex flex-column gap-2 shadow p-4">
+            <form onSubmit={handleSubmit} className="container d-flex flex-column gap-2 shadow p-4 w-50">
                 <h3>Admin Login</h3>
 
                 <label>Email:</label>

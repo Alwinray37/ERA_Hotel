@@ -8,6 +8,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for managing admins.
+ * <p>
+ * Provides endpoints for retrieving admin information by email and for listing all admins.
+ * </p>
+ *
+ * @author alwin roble
+ * @see com.erahotel.era_backend.dto.AdminDto
+ * @see com.erahotel.era_backend.service.AdminService
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/admins")
@@ -16,21 +26,26 @@ public class AdminController {
 
     private final AdminService adminService;
 
-
-    // get by email
+    /**
+     * Retrieves an admin by their email address.
+     *
+     * @param email the email address of the admin
+     * @return the admin as an {@link AdminDto}
+     */
     @GetMapping("/email/{email}")
-    public ResponseEntity<AdminDto> getByAdminEmail(@PathVariable("email") String email){
+    public ResponseEntity<AdminDto> getByAdminEmail(@PathVariable("email") String email) {
         AdminDto adminDto = adminService.getByAdminEmail(email);
         return ResponseEntity.ok(adminDto);
     }
 
-    // get all admins
+    /**
+     * Retrieves all admins.
+     *
+     * @return a list of all admins as {@link AdminDto} objects
+     */
     @GetMapping
-    public ResponseEntity<List<AdminDto>> getAllAdmins(){
+    public ResponseEntity<List<AdminDto>> getAllAdmins() {
         List<AdminDto> admins = adminService.getAllAdmins();
         return ResponseEntity.ok(admins);
     }
-
-
 }
-
