@@ -1,11 +1,11 @@
 import { Navigate, useLocation } from "react-router-dom"
-import { getReservationById } from "../service/AdminService";
+import { getReservationById } from "../service/";
 import { useState, useEffect } from "react";
-import { getRoomByNumber } from "../service/AdminService";
-import { getGuestByEmail } from "../service/AdminService";
+import { getRoomByNumber } from "../service/";
+import { getGuestByEmail } from "../service/";
 
 
-export default function ViewAdminRes(){
+export default function AdminDashboard(){
     const location = useLocation();
 
     // takes the guest email and resID from AdminDashboard page
