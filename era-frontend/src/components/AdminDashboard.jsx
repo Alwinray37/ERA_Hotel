@@ -1,91 +1,91 @@
-import { Navigate, useLocation } from "react-router-dom"
-import { getReservationById } from "../service/";
-import { useState, useEffect } from "react";
-import { getRoomByNumber } from "../service/";
-import { getGuestByEmail } from "../service/";
+import React, { useEffect, useMemo, useState } from "react";
+import { listGuests } from "../service/GuestService";
+import { listReservations } from "../service/ReservationService";
 
+export default function AdminDashboard() {
+  const [guests, setGuests] = useState([]);
+  const [reservations, setReservations] = useState([]);
+  const [err, setErr] = useState("");
 
-export default function AdminDashboard(){
-    const location = useLocation();
+  useEffect(() => {
+    Promise.all([listGuests(), listReservations()])
+      .then(([g, r]) => { setGuests(g || []); setReservations(r || []); })
+      .catch(e => { console.error(e); setErr("Could not load reservations."); });
+  }, []);
 
-    // takes the guest email and resID from AdminDashboard page
-    const email = location.state.email;
-    const resId = location.state.resID; // reservationID (ABC123)
-    // checking if values transfered
-    // console.log("Guest Email", email);
-    // console.log("Reservation Number", resId);
+  const gByEmail = useMemo(() => new Map(guests.map(g => [g.email, g])), [guests]);
+  const fmtDate = d => (d ? new Date(d).toLocaleDateString() : "");
+  const fmtMoney = n => (n == null ? "" : Number(n).toLocaleString(undefined, { style: "currency", currency: "USD" }));
 
-    // get reservation by id, room by roomNumber
-    const [reservation, setReservation] = useState(null);
-    const [room, setRoom] = useState(null);
-    const [guest, setGuest] = useState(null);
+  const styles = {
+    page: { maxWidth: 960, margin: "2rem auto", padding: "0 1rem" },
+    headerRow: { display: "flex", justifyContent: "space-between", alignItems: "center" },
+    btn: { padding: "8px 12px", borderRadius: 6, border: "none", cursor: "pointer" },
+    add: { background: "#2563eb", color: "#fff", fontWeight: 600 },
+    hi: { margin: "0.5rem 0 0.75rem" },
+    tableWrap: { overflowX: "auto", marginTop: 8 },
+    table: { width: "100%", borderCollapse: "collapse", background: "#fff" },
+    thtd: { padding: "10px 12px", borderBottom: "1px solid #e5e7eb", whiteSpace: "nowrap", textAlign: "left" },
+    thead: { background: "#f8fafc" },
+    error: { color: "#b91c1c", marginTop: 8 },
+    logout: { marginTop: 16 }
+  };
 
-    useEffect(() => {
-        const fetchReservation = async () => {
-            try {
-                const res = await getReservationById(resId);
-                setReservation(res);
-                console.log("res obj: ", res);
-            } catch (error) {
-                console.error("Error fetching admin:", error);
-            }
-        };
-        if (resId) fetchReservation();
-    }, [resId]);
+  const logout = () => { localStorage.removeItem("admin"); window.location.href = "/admin-login"; };
 
-    useEffect( () => {
-        const fetchRoom = async () => {
-            console.log(reservation.roomNumber)
-            try {
-                const res = await getRoomByNumber(reservation.roomNumber);
-                setRoom(res);
-                console.log("room: " , room);
-            } catch {
-                console.log("Error fetching room");
-            }
-        };
-        if(reservation) fetchRoom();
-    }, [reservation]);
+  return (
+    <div style={styles.page}>
+      <div style={styles.headerRow}>
+        <h2 style={{ margin: 0 }}>Admin Dashboard</h2>
+        <button style={{ ...styles.btn, ...styles.add }} onClick={() => (window.location.href = "/add-room")}>Add Room</button>
+      </div>
 
-    useEffect( () => {
-        const fetchGuest = async () => {
-            try {
-                const res = await getAdmiByEmail(email);
-                setGuest(res);
-                console.log("guest: " , room);
-            } catch {
-                console.log("Error fetching room");
-            }
-        };
-        if(reservation) fetchGuest();
-    }, [reservation]);
+      <p style={styles.hi}>Welcome Admin</p>
 
+      {/* reservations table */}
+      <div style={styles.tableWrap}>
+        {err ? (
+          <div style={styles.error}>{err}</div>
+        ) : (
+          <table style={styles.table}>
+            <thead style={styles.thead}>
+              <tr>
+                <th style={styles.thtd}>resID</th>
+                <th style={styles.thtd}>guestName</th>
+                <th style={styles.thtd}>guest email</th>
+                <th style={styles.thtd}>phone</th>
+                <th style={styles.thtd}>roomNum</th>
+                <th style={styles.thtd}>dates</th>
+                <th style={styles.thtd}>cost</th>
+                <th style={styles.thtd}>status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reservations.length ? reservations.map(r => {
+                const g = gByEmail.get(r.guestEmail) || {};
+                return (
+                  <tr key={r.reservationId}>
+                    <td style={styles.thtd}>{r.reservationId}</td>
+                    <td style={styles.thtd}>{g.name || `${g.firstName || ""} ${g.lastName || ""}`.trim()}</td>
+                    <td style={styles.thtd}>{r.guestEmail}</td>
+                    <td style={styles.thtd}>{g.phone || ""}</td>
+                    <td style={styles.thtd}>{r.roomNumber}</td>
+                    <td style={styles.thtd}>{fmtDate(r.startDate)} — {fmtDate(r.endDate)}</td>
+                    <td style={styles.thtd}>{fmtMoney(r.totalCost)}</td>
+                    <td style={styles.thtd}>{r.status}</td>
+                  </tr>
+                );
+              }) : (
+                <tr><td style={styles.thtd} colSpan="8">No reservations found.</td></tr>
+              )}
+            </tbody>
+          </table>
+        )}
+      </div>
 
-    // loading message before data is loaded
-    if(!reservation || !room || !guest){
-        return (
-            <div className="main-content container">
-                loading
-            </div>
-        )
-    }
-
-    return(
-        <div className="content">
-            <div className="container shadow p-4 ">
-                <h2>Guest Reservation Details</h2>
-            <p>Name: {guest.name}</p>
-            <p>Email: {reservation.guestEmail}</p>
-            <p>Room Number: {reservation.roomNumber}</p>
-            <p>Room Details: {room.description}</p>
-            <p>Check-in: {new Date(reservation.startDate).toDateString()}</p>
-            <p>Check-out: {new Date(reservation.endDate).toDateString()}</p>
-
-            <div className="button-container contianer d-flex gap-4 justify-content-start w-2">
-                <button className="btn btn-warning">Modify Reservation</button>
-                <button className="btn btn-danger">Cancel Reservation</button>
-            </div>
-            </div>
-        </div>
-    )
+      <div style={styles.logout}>
+        <button style={styles.btn} onClick={logout}>Logout</button>
+      </div>
+    </div>
+  );
 }

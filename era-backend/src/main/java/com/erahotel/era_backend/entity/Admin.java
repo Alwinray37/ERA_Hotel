@@ -7,13 +7,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "admins") // specifies the table name in mySql
+@Table(name = "admins")
 
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
-
     private String name;
     private String email;
     private String password;
