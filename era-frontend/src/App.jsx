@@ -13,6 +13,7 @@ import Confirmation from './components/Confirmation';
 import { getReservationById } from './service/ReservationService';
 import ViewGuestRes from './components/ViewGuestReservation';
 import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
@@ -116,6 +117,7 @@ function AppContent() {
                 <Route path="/confirmation" element={<Confirmation />} />
                 <Route path='/view-guest-reservation' element={<ViewGuestRes />} />
                 <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
             </Routes>
 
             <Footer />

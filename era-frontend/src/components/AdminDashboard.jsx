@@ -1,16 +1,15 @@
-export default function AdminDashboard() {
-  const admin = JSON.parse(localStorage.getItem("admin") || "{}");
 
-  const logout = () => {
-    localStorage.removeItem("admin");
-    window.location.href = "/admin-login";
-  };
+
+export default function AdminDashboard() {
+
+
+
 
   return (
-    <div style={{ maxWidth: 720, margin: "2rem auto" }}>
+    <div className="content">
       <h2>Admin Dashboard</h2>
-      <p>Welcome, {admin?.name} ({admin?.email})</p>
-      <button onClick={logout}>Logout</button>
+      {/* <p>Welcome, {admin?.name} ({admin?.email})</p> */}
+      {/* <button onClick={logout}>Logout</button> */}
     </div>
   );
 }
