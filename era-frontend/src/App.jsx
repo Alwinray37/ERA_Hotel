@@ -11,7 +11,10 @@ import AboutUs from './components/AboutUs';
 import ViewReservations from './components/ViewReservations';
 import Confirmation from './components/Confirmation';
 import { getReservationById } from './service/ReservationService';
-import ViewGuestRes from './components/ViewGuestReservation'
+import ViewGuestRes from './components/ViewGuestReservation';
+import AdminLogin from './components/AdminLogin';
+// Added for admin dashboard functionality
+import AdminDashboard from './components/AdminDashboard';
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
@@ -101,11 +104,11 @@ function AppContent() {
     return (
         <div className='app'>
             <Navbar />
-            
+
             <Routes>
                 <Route path="/" element={
                     <div className='content'>
-                        <BookingSearch handleSearch={handleSearch} /> 
+                        <BookingSearch handleSearch={handleSearch} />
                         <ViewRooms availableRooms={availableRooms} sStart={searchStart} sEnd={searchEnd} />
                     </div>
                     } />
@@ -114,6 +117,9 @@ function AppContent() {
                 <Route path="/view-reservation" element={<ViewReservations />} />
                 <Route path="/confirmation" element={<Confirmation />} />
                 <Route path='/view-guest-reservation' element={<ViewGuestRes />} />
+                <Route path="/admin-login" element={<AdminLogin />} />
+                {/* Admin dashboard route */}
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
             </Routes>
 
             <Footer />
@@ -124,11 +130,11 @@ function AppContent() {
 // Main App component that wraps AppContent with Router
 function App(){
     return (
-    
+
         <Router>
             <AppContent />
         </Router>
-    
+
     )
 }
 export default App;
