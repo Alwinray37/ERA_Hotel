@@ -26,6 +26,7 @@ export default function AdminLogin() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+  
         // get admin email
         const admin = await getAdminByEmail(formData.email);
         if(!admin){
