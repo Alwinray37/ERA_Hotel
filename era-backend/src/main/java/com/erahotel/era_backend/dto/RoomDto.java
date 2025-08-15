@@ -40,6 +40,13 @@ public class RoomDto {
      */
     private BigDecimal price;
 
+    /** stores the room type */
+    private String type;
+
+    /** stores the base url for the room img to be implemented in viewRooms component
+     * "../assets/Images/Room {101}.jpg"*/
+    private String roomImgUrl;
+
     /**
      * A list of reservation IDs associated with the room.
      */
