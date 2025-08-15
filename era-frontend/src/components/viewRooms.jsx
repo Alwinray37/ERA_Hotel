@@ -22,6 +22,7 @@ function ViewRooms({ availableRooms, sStart, sEnd }) {
                         <h3 >Room {room.roomNumber}</h3>
                         <p><strong>Price:</strong> ${room.price}</p>
                         <p><strong>Description:</strong> {room.description}</p>
+                        <p><strong>Room Type:</strong> {room.type}</p>
                         <button className="btn btn-dark" onClick={() => handleBookNow(room)}>Book Now</button>
                     </div>
                     <div className="col">
