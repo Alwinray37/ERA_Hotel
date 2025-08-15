@@ -172,3 +172,12 @@ html, body, #root{
   justify-content: space-around;
   align-items: center;
 }
+
+/* Gradient background for Admin Login page */
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #c8deff, #7bacfb, #2a68fb);
+}

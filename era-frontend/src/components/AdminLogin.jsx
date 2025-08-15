@@ -1,54 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { getAdminByEmail, listAdmins } from '../service/AdminService';
-import '../styles/ViewReservations.css'; // same style as ViewReservations
+import React, { useState } from 'react';
+import { getAdminByEmail } from '../service/AdminService';
+import '../App.css'; // Keep global styles
 import { useNavigate } from 'react-router-dom';
 
 export default function AdminLogin() {
     const navigate = useNavigate();
 
-    // data from the form are saved here
-    // updated by handleChange function
+    // data from the form are saved here 
+    // updated by handleChange function const [formData, setFormData] = useState({ email: "", password: "" }); 
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
 
     // testing to see if we can get a list of the admins
-    // const [admins, setAdmins] = useState([]);
-    // useEffect( () => {
-    //     listAdmins()
-    //         .then(data => {
-    //             setAdmins(data);
-    //         })
-    //         .catch( err => {
-    //             console.log("Error fetching admins from db", err);
-    //         });
-    // }, []);
-    // console.log("Admins: ", admins);
-
-    // function to handle login button
+    // const [admins, setAdmins] = useState([]); 
+    // useEffect( () => { 
+    // listAdmins() 
+    // .then(data => { 
+    // setAdmins(data); 
+    // }) 
+    // .catch( err => { 
+    // console.log("Error fetching admins from db", err); 
+    // }); 
+    // }, []); 
+    // console.log("Admins: ", admins); 
+    
+    // function to handle login button const handleSubmit = async (e) => { e.preventDefault(); 
     const handleSubmit = async (e) => {
         e.preventDefault();
   
         // get admin email
         const admin = await getAdminByEmail(formData.email);
-        if(!admin){
+        if (!admin) {
             console.log("admin not found");
         } else {
             console.log("admin found: ", admin);
-            if(formData.email === admin.email && formData.password === admin.password)  {
+            if (formData.email === admin.email && formData.password === admin.password) {
                 console.log("admin info: ", admin);
-                // alert("Match");
-
-                // navigate to dashboard
+                // Save to localStorage so dashboard can read it
+                localStorage.setItem("admin", JSON.stringify(admin));
                 navigate("/admin-dashboard");
-
-            }  else {
-                alert("Email and Password does not match");
+            } else {
+                alert("Email and Password do not match");
             }
         }
     };
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -56,8 +53,8 @@ export default function AdminLogin() {
     };
 
     return (
-        <div className="content">
-            <form onSubmit={handleSubmit} className="container d-flex flex-column gap-2 shadow p-4 w-50">
+        <div className="admin-login-page">
+            <form onSubmit={handleSubmit} className="container d-flex flex-column gap-2 shadow p-4 w-50 bg-white rounded">
                 <h3>Admin Login</h3>
 
                 <label>Email:</label>
