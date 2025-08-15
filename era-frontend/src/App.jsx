@@ -16,6 +16,7 @@ import AdminLogin from './components/AdminLogin';
 // Added for admin dashboard functionality
 import AdminDashboard from './components/AdminDashboard';
 import ModifyRes from './components/ModifyRes';
+import AddRoom from './components/AddRoom';
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
@@ -119,6 +120,7 @@ function AppContent() {
                 <Route path="/admin-login" element={<AdminLogin />} />
                 {/* Admin dashboard route */}
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                <Route path="/add-room" element={<AddRoom />} />
             </Routes>
 
             <Footer />
