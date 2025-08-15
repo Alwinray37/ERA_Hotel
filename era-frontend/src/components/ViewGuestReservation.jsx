@@ -67,7 +67,7 @@ export default function ViewGuestRes(){
         console.log("Reservation status: " ,reservation.status);
         setReservation(updRes); // triggers re-render of component 
         // update reservation in the backend
-        updateReservation(reservation.reservationId, reservation);
+        updateReservation(reservation.reservationId, updRes);
         
     }
     const handleModify = () => {

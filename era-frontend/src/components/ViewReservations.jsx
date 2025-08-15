@@ -43,7 +43,7 @@ export default function ViewReservations() {
 
         // validate if guest.guestEmail == reservation.guestEmail
         if(guest.email == reservation.guestEmail){
-            alert("Match");
+            // alert("Match");
 
             // navigate to viewGuestRes component
             navigate('/view-guest-reservation', { state: { email: formData.email, resID : formData.reservationNumber } });
