@@ -57,6 +57,13 @@ public class Room {
      */
     private BigDecimal price;
 
+    /** stores the room type; "Single, Double, King, */
+    private String type;
+
+    /** stores the base url for the room img to be implemented in viewRooms component
+     * "../assets/Images/Room {101}.jpg"*/
+    private String roomImgUrl;
+
     /**
      * A list of reservation IDs associated with the room.
      * Each entry in the list represents a reservation for this room.

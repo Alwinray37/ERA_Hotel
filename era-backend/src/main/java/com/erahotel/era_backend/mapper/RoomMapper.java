@@ -27,6 +27,8 @@ public class RoomMapper {
                 room.getRoomNumber(),
                 room.getDescription(),
                 room.getPrice(),
+                room.getType(),
+                room.getRoomImgUrl(),
                 room.getRoomReservations()
         );
     }
@@ -43,6 +45,8 @@ public class RoomMapper {
                 roomDto.getRoomNumber(),
                 roomDto.getDescription(),
                 roomDto.getPrice(),
+                roomDto.getType(),
+                roomDto.getRoomImgUrl(),
                 roomDto.getRoomReservations()
         );
     }

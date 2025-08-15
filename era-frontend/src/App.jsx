@@ -85,9 +85,16 @@ function AppContent() {
 
             // Check for overlap with any reservation
             const hasOverlap = reservations.some(reservation => {
+                // if reservation is cancelled return false for no overlap
+                console.log("Res and Status: ", reservation.reservationId, " ", reservation.status)
+                if(reservation.status == "Cancelled"){
+                    // alert("cancelled");
+                    return false;
+                }
+
                 const resStart = new Date(reservation.startDate);
                 const resEnd = new Date(reservation.endDate);
-
+                console.log(reservation)
                 // Overlap logic: (searchStart <= resEnd) && (searchEnd >= resStart)
                 return (searchStart <= resEnd) && (searchEnd >= resStart);
             });
