@@ -16,12 +16,14 @@ import AdminLogin from './components/AdminLogin';
 // Added for admin dashboard functionality
 import AdminDashboard from './components/AdminDashboard';
 import ModifyRes from './components/ModifyRes';
+import AddRoom from './components/AddRoom';
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
     const [availableRooms, setAvailableRooms] = useState([]);
     const [searchStart, setSearchStart] = useState(null); // start date for search
-    const [searchEnd, setSearchEnd] = useState(null); // end date for
+    const [searchEnd, setSearchEnd] = useState(null); // end date for serach
+    const [roomType, setRoomType] = useState('All');
 
     const location = useLocation();
 
@@ -40,27 +42,17 @@ function AppContent() {
     // handle search function that will be passed to BookingSearch component
     // takes dateRange as an argument from BookingSearch
     // and sets the searchStart and searchEnd state variables
-    const handleSearch =  (dateRange) => {
+    const handleSearch = (dateRange, selectedType) => {
         const [start, end] = dateRange;
-
-        // passing these values to ViewRooms component
         setSearchStart(start);
         setSearchEnd(end);
-
-        // debug log
-        console.log(
-            "Handle search:",
-            "\nSearchStart:", start,
-            "\nSearchEnd:", end
-        )
-
-        // filter rooms based on search criteria
-        filterRooms(start, end);
+        setRoomType(selectedType); // Save selected type in state
+        filterRooms(start, end, selectedType);
     };
 
     // filter function to find available rooms based on search criteria
     // is called in handleSearch ^
-    const filterRooms = async (sStart, sEnd) => {
+    const filterRooms = async (sStart, sEnd, selectedType = roomType) => {
         if (!sStart || !sEnd) {
             setAvailableRooms([]);
             return;
@@ -72,6 +64,11 @@ function AppContent() {
         const filteredRooms = [];
 
         for (const room of rooms) {
+            // Filter by type if not "All"
+            if (selectedType && selectedType !== "All" && room.type !== selectedType) {
+                continue;
+            }
+
             // If no reservations, room is available
             if (!room.roomReservations || room.roomReservations.length === 0) {
                 filteredRooms.push(room);
@@ -85,17 +82,11 @@ function AppContent() {
 
             // Check for overlap with any reservation
             const hasOverlap = reservations.some(reservation => {
-                // if reservation is cancelled return false for no overlap
-                console.log("Res and Status: ", reservation.reservationId, " ", reservation.status)
-                if(reservation.status == "Cancelled"){
-                    // alert("cancelled");
+                if (reservation.status && reservation.status.trim().toLowerCase() === "cancelled") {
                     return false;
                 }
-
                 const resStart = new Date(reservation.startDate);
                 const resEnd = new Date(reservation.endDate);
-                console.log(reservation)
-                // Overlap logic: (searchStart <= resEnd) && (searchEnd >= resStart)
                 return (searchStart <= resEnd) && (searchEnd >= resStart);
             });
 
@@ -129,6 +120,7 @@ function AppContent() {
                 <Route path="/admin-login" element={<AdminLogin />} />
                 {/* Admin dashboard route */}
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                <Route path="/add-room" element={<AddRoom />} />
             </Routes>
 
             <Footer />

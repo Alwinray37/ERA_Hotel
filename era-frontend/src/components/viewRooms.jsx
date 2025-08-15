@@ -17,22 +17,21 @@ function ViewRooms({ availableRooms, sStart, sEnd }) {
     <div className="room-cards-container container p-2 d-flex flex-column gap-4">
         {availableRooms && availableRooms.length > 0 ? (
             availableRooms.map((room) => (
-                <div className="room-card card " key={room.roomNumber}>
-                    <img
-                        src={`${roomImgUrlBase} ${room.roomNumber}.jpg`}
-                        alt={`Room ${room.roomNumber}`}
-                        className="room-image card-img-top"
-                    />
-
-                    <h3 >Room {room.roomNumber}</h3>
-                    <p><strong>Price:</strong> ${room.price}</p>
-                    <p><strong>Description:</strong> {room.description}</p>
-
-                    <button className="btn btn-dark" onClick={() => handleBookNow(room)}>Book Now</button>
+                <div className="room-card bg-white shadow d-flex flex-column flex-md-row gap-4" key={room.roomNumber}>
+                    <div className="col">
+                        <h3 >Room {room.roomNumber}</h3>
+                        <p><strong>Price:</strong> ${room.price}</p>
+                        <p><strong>Description:</strong> {room.description}</p>
+                        <p><strong>Room Type:</strong> {room.type}</p>
+                        <button className="btn btn-dark" onClick={() => handleBookNow(room)}>Book Now</button>
+                    </div>
+                    <div className="col">
+                        <img src={`${roomImgUrlBase} ${room.roomNumber}.jpg`} alt={`Room ${room.roomNumber}`} className="rounded card-img-top col"  />
+                    </div>
                 </div>
             ))
         ) : (
-        <p>No rooms available.</p>
+        <h2>No rooms available. Please refine your search</h2>
       )}
     </div>
   );

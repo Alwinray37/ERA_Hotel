@@ -27,6 +27,7 @@ export const getRoomByNumber = async (roomNum) => {
     return res.data;
   } catch(err){
     console.log(err);
+    throw err;
   }
 }
 
@@ -37,5 +38,19 @@ export const updateRoom = async (roomId, updatedRoom) => {
   } catch (error) {
     console.error('Error updating room:', error);
     throw error;
+  }
+}
+
+// Add a new room
+export async function addRoom(room) {
+  try {
+      const response = await axios.post(`${urlbase}`, room, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch(err) {
+    console.log('Error adding room', err);
   }
 }

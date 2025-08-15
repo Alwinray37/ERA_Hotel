@@ -15,7 +15,13 @@ export default function ModifyRes() {
     const [formData, setFormData] = useState(
         {   name: "",
         email: ""   }  
-    )
+    );
+
+    useEffect(() => {
+        if (guest) {
+            setFormData({ name: guest.name, email: guest.email });
+        }
+    }, [guest]);
 
     // fetch guest data using res.guestEmail 
     useEffect(() => {
@@ -28,17 +34,29 @@ export default function ModifyRes() {
     console.log(guest);
 
     // 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const updatedRes = {...reservation, guestEmail: formData.email}; // reservation only has guest email 
-        updateReservation(reservation.reservationId, updatedRes);   
-        const updatedGuest = {... guest, name: formData.name, email: formData.email};
-        updateGuest(guest.guestId, updatedGuest);
+        // If the email is being changed, check if it already exists
+        if (formData.email !== guest.email) {
+            const existingGuest = await getGuestByEmail(formData.email);
+            if (existingGuest && existingGuest.guestId !== guest.guestId) {
+                alert("A guest with this email already exists. Please use a different email.");
+                return;
+            }
+        }
+
+        // Proceed with update
+        const updatedRes = { ...reservation, guestEmail: formData.email };
+        await updateReservation(reservation.reservationId, updatedRes);
+
+        const updatedGuest = { ...guest, name: formData.name, email: formData.email };
+        await updateGuest(guest.guestId, updatedGuest);
 
         alert("Changes made!");
-        navigate('/view-guest-reservation', { state: { email: formData.email, resID : reservation.reservationId } })// navigate back to view reservation page
+        navigate('/view-guest-reservation', { state: { email: formData.email, resID: reservation.reservationId } });
     }
+
 
     // updates the formData variables: email, name
     const handleChange = (e) => {
@@ -56,20 +74,19 @@ export default function ModifyRes() {
 
     return (
         <div className="content">
-            <h2>Modify Guest Reservation</h2>
-
-            <div className="container m-auto">
+            <div className="container m-auto d-flex flex-column gap-4 align-items-center mt-4">
+                <h2>Modify Guest Reservation</h2>
                 <form onSubmit = {handleSubmit}  className="form w-50 m-auto d-flex flex-column gap-2 shadow p-4">
-                    <label htmlFor="name">Name: {guest.name}</label>
+                    <label htmlFor="name">Name:</label>
                     <input className="form-control" type="text" name="name" placeholder="Enter new name" value={formData.name} onChange={handleChange}/>
-                    <label htmlFor="email">Email: {reservation.guestEmail} </label>
+                    <label htmlFor="email">Email: </label>
                     <input className="form-control" type="email" name="email" placeholder="Enter new email" value={formData.email} onChange={handleChange}/>
                     
-                    <p><strong>Reservation ID: </strong>{reservation.reservationId}</p>
-                    <p><strong>Room: </strong>{reservation.roomNumber}</p>
-                    <p><strong>Check-in: </strong>{new Date(reservation.startDate).toDateString()}</p>
-                    <p><strong>Check-out: </strong>{new Date(reservation.endDate).toDateString()}</p>
-                    <p><strong>Cost: </strong>{reservation.totalCost}</p>
+                    <div><strong>Reservation ID: </strong>{reservation.reservationId}</div>
+                    <div><strong>Room: </strong>{reservation.roomNumber}</div>
+                    <div><strong>Check-in: </strong>{new Date(reservation.startDate).toDateString()}</div>
+                    <div><strong>Check-out: </strong>{new Date(reservation.endDate).toDateString()}</div>
+                    <div><strong>Cost: </strong>{reservation.totalCost}</div>
                     <button type="submit" className="btn btn-success">Save Changes</button>
                 </form>
             </div>

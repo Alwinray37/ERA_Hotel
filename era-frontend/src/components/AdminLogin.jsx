@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getAdminByEmail } from '../service/AdminService';
 import '../App.css'; // Keep global styles
 import { useNavigate } from 'react-router-dom';
 
 export default function AdminLogin() {
     const navigate = useNavigate();
+    const [error, setError] = useState('');
 
     // data from the form are saved here 
     // updated by handleChange function const [formData, setFormData] = useState({ email: "", password: "" }); 
@@ -13,27 +14,27 @@ export default function AdminLogin() {
         password: ""
     });
 
-    // testing to see if we can get a list of the admins
-    // const [admins, setAdmins] = useState([]); 
-    // useEffect( () => { 
-    // listAdmins() 
-    // .then(data => { 
-    // setAdmins(data); 
-    // }) 
-    // .catch( err => { 
-    // console.log("Error fetching admins from db", err); 
-    // }); 
-    // }, []); 
-    // console.log("Admins: ", admins); 
+     // Check localStorage for admin on mount
+    useEffect(() => {
+        const storedAdmin = localStorage.getItem("admin");
+        if (storedAdmin) {
+            // Optionally, you can parse and set formData if you want to pre-fill the form
+            // const adminObj = JSON.parse(storedAdmin);
+            // setFormData({ email: adminObj.email, password: adminObj.password });
+            navigate("/admin-dashboard");
+        }
+    }, [navigate]);
     
     // function to handle login button const handleSubmit = async (e) => { e.preventDefault(); 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(""); 
   
         // get admin email
         const admin = await getAdminByEmail(formData.email);
         if (!admin) {
             console.log("admin not found");
+            setError("Admin not found");
         } else {
             console.log("admin found: ", admin);
             if (formData.email === admin.email && formData.password === admin.password) {
@@ -78,6 +79,7 @@ export default function AdminLogin() {
                 />
 
                 <button className="btn btn-primary mb-2" type="submit">Login</button>
+                {error && <div className="alert alert-danger">{error}</div>}
             </form>
         </div>
     );
