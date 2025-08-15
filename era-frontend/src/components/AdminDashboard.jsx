@@ -7,9 +7,15 @@ export default function AdminDashboard() {
   const [guests, setGuests] = useState([]);
   const [reservations, setReservations] = useState([]);
   const [err, setErr] = useState("");
+  const [admin, setAdmin] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Load admin from localStorage
+    const storedAdmin = localStorage.getItem("admin");
+    if (storedAdmin) {
+      setAdmin(JSON.parse(storedAdmin));
+    }
     Promise.all([listGuests(), listReservations()])
       .then(([g, r]) => { setGuests(g || []); setReservations(r || []); })
       .catch(e => { console.error(e); setErr("Could not load reservations."); });
@@ -29,7 +35,7 @@ export default function AdminDashboard() {
         <button className="btn btn-primary fw-bold" onClick={() => (navigate('/add-room'))}>Add Room</button>
       </div>
 
-      <p className="mb-3">Welcome Admin</p>
+      <p className="mb-3">Welcome {admin ? admin.name : "Admin"}</p>
 
       {/* reservations table */}
       <div className="table-responsive">
