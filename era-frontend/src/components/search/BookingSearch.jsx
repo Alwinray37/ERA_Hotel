@@ -21,9 +21,9 @@ export default function BookingSearch({ handleSearch }) {
   	return (
     <>
       {/* Hero Section with background image */}
-      <section className="hero-section container">
-        <div className="hero-overlay ">
-			<h1>Welcome to Era Hotel</h1>
+      <section className="hero-section">
+        <div className="hero-overlay d-flex flex-column justify-content-center align-items-center">
+			<h1>Welcome to ERA Hotel</h1>
 			<p>Your comfort is our <strong>priority</strong>.</p>
 
 			<div className="booking-bar">

@@ -119,6 +119,7 @@ export default function BookingForm() {
 
 
     return (
+    <div className="content">
         <div className='container'>
             <div className='booking-details container border rounded-3 p-4 shadow'>
                 <h2>Booking For Room {room.roomNumber}</h2>
@@ -146,6 +147,7 @@ export default function BookingForm() {
                 <button type="submit" className='btn btn-primary w-1'>Confirm Booking</button>
             </form> 
         </div>
+    </div>
     );
 }; 
 

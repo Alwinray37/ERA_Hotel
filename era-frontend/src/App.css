@@ -1,4 +1,3 @@
-
 html, body, #root{
   min-height: 100vh;
   margin: 0;
@@ -16,7 +15,6 @@ html, body, #root{
   width: 100%;
   max-width: 1200px;
   margin: 30px auto;
-  /* padding: 2rem; */
 }
 
 /* Navbar  */
@@ -71,7 +69,7 @@ html, body, #root{
 
 .about-us-section {
   max-width: 800px;
-  margin: 4rem auto 0; /* ⬅️ increased margin pushes it down more */
+  margin: 4rem auto 0;
   padding: 2rem;
   background-color: #ffffff;
   border-radius: 12px;
@@ -98,7 +96,7 @@ html, body, #root{
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-  align-items: center ;
+  align-items: center;
   gap: 1.5rem;
   margin-top: 2rem;
   background-color: none;
@@ -112,6 +110,7 @@ html, body, #root{
   width: 80%;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .room-card button {
   background-color: #213547;
   color: white;
@@ -123,6 +122,18 @@ html, body, #root{
 .room-card button:hover {
   background-color: #1a7def;
   transition: background-color 0.3s ease;
+}
+
+/* Room images */
+.room-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.room-card .card-img-top {
+  margin-bottom: 1rem;
 }
 
 /* footer  */
@@ -160,4 +171,30 @@ html, body, #root{
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+
+/* Gradient background for Admin Login page */
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #c8deff, #7bacfb, #2a68fb);
+}
+
+.about-us-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 140px); /* adjusts for navbar & footer */
+  background: linear-gradient(135deg, #dbeafe, #93c5fd);
+}
+
+.about-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 720px;
+  width: 100%;
 }

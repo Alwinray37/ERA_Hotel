@@ -58,7 +58,7 @@ export default function ViewReservations() {
     }
 
     return (
-        <div className="content ">
+        <div className="content">
             <form onSubmit = {handleSubmit} className = "view-res-form  m-auto mt-4  d-flex flex-column gap-2 shadow p-4">
                 <h3>View Reservations</h3>
                 <label>Email:</label>
