@@ -88,7 +88,7 @@ export default function ViewGuestRes(){
         return(
             <div className="content d-flex flex-column align-items-center p-4">
                 <h2>Reservation Cancelled</h2>
-                <div className="res-content container shadow p-4">
+                <div className="res-content container shadow p-4 d-flex flex-column flex-md-row">
                     <div className="col">
                         <p><strong>Name:</strong> {guest.name}</p>
                         <p><strong>Email:</strong> {reservation.guestEmail}</p>
@@ -99,7 +99,7 @@ export default function ViewGuestRes(){
                         <p><strong>Status:</strong> {reservation.status}</p>
                     </div>
                     <div className="col room-img">
-                        <img src={`${room.roomImgUrl}`} alt={`${room.roomNumber}`} />
+                        <img src={`${room.roomImgUrl}`} alt={`${room.roomNumber}`} className="img-fluid rounded"/>
                     </div>
                 </div>
             </div>
@@ -109,8 +109,8 @@ export default function ViewGuestRes(){
     // actual data to view when objects are not null 
     return(
         <div className="content">
-            <div className="container shadow p-4 d-flex">
-                <div className="col flex-2">
+            <div className="container m-auto my-4 row shadow p-4 d-flex flex-column flex-md-row gap-4 ">
+                <div className="col">
                     <h2>Guest Reservation Details</h2>
                     <p><strong>Reservation Number:</strong> {reservation.reservationId}</p>
                     <p><strong>Name:</strong> {guest.name}</p>
@@ -121,14 +121,14 @@ export default function ViewGuestRes(){
                     <p><strong>Check-out:</strong> {new Date(reservation.endDate).toDateString()}</p>
                     <p><strong>Status:</strong> {reservation.status}</p>
 
-                    <div className="button-container contianer d-flex gap-4 justify-content-start w-2">
+                    <div className="button-container container d-flex gap-4 justify-content-start">
                         <button className="btn btn-warning" onClick={handleModify}>Modify Reservation</button>
                         <button className="btn btn-danger" onClick={handleCancel}>Cancel Reservation</button>
                     </div>
                 </div>
 
-                <div className="col flex-1">
-                    <img src={`${room.roomImgUrl}`} alt={`${room.roomNumber}`} />
+                <div className="col">
+                    <img src={`${room.roomImgUrl}`} alt={`${room.roomNumber}`} className="img-fluid rounded"/>
                 </div>
             </div>
         </div>

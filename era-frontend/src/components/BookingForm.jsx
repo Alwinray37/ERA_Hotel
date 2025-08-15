@@ -121,31 +121,38 @@ export default function BookingForm() {
     return (
     <div className="content">
         <div className='container'>
-            <div className='booking-details container border rounded-3 p-4 shadow'>
-                <h2>Booking For Room {room.roomNumber}</h2>
-                <p><strong>Price:</strong> ${room.price} per night</p>
-                <p><strong>Check-in Date:</strong> {searchStart.toDateString()}</p>
-                <p><strong>Check-out Date:</strong> {searchEnd.toDateString()}</p>
-                <p><strong>Number of Nights:</strong> {numberOfNights}</p>
-                <p><strong>Total Cost:</strong> ${(room.price * numberOfNights).toFixed(2)}</p>
+            <div className='booking-details container border rounded-3 p-4 shadow d-flex flex-column flex-md-row w-md-50 gap-4'>
+                <div className="col">
+                    <h2>Booking For Room {room.roomNumber}</h2>
+                    <p><strong>Price:</strong> ${room.price} per night</p>
+                    <p><strong>Check-in Date:</strong> {searchStart.toDateString()}</p>
+                    <p><strong>Check-out Date:</strong> {searchEnd.toDateString()}</p>
+                    <p><strong>Number of Nights:</strong> {numberOfNights}</p>
+                    <p><strong>Total Cost:</strong> ${(room.price * numberOfNights).toFixed(2)}</p>
+
+                    {/* Form for user to input their details */}
+                    <form className='guest-booking-form form d-flex flex-column gap-2 w-75' onSubmit={handleSubmit}>
+                        <h3>Guest Information</h3>
+                        <div>
+                            <label htmlFor="name">Name:</label>
+                            <input className='form-control' type="text" name="name" value={guestInfo.name} onChange={handleChange} required placeholder='Enter your name'/>
+                        </div>
+                        <div>
+                            <label htmlFor="email">Email:</label>
+                            <input className='form-control' type="email" name="email" value={guestInfo.email} onChange={handleChange} required placeholder='Enter your email'/>
+                        </div>
+                        <div>
+                            <label htmlFor="phone">Phone:</label>
+                            <input className='form-control' type="tel" name="phone" value={guestInfo.phone} onChange={handleChange} required placeholder='Enter your phone number'/>
+                        </div>
+                        <button type="submit" className='btn btn-primary w-50'>Confirm Booking</button>
+                    </form> 
+                </div>
+
+                <div className="col">
+                    <img src={room.roomImgUrl} alt={`${room.roomNumber}`}  className='img-fluid rounded'/>
+                </div>
             </div>
-            {/* Form for user to input their details */}
-            <form className='guest-booking-form form border p-4 d-flex gap-2 rounded shadow  flex-column justify-content-center align-items-center' onSubmit={handleSubmit}>
-                <h3>Guest Information</h3>
-                <div>
-                    <label htmlFor="name">Name:</label>
-                    <input className='form-control' type="text" name="name" value={guestInfo.name} onChange={handleChange} required placeholder='Enter your name'/>
-                </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input className='form-control' type="email" name="email" value={guestInfo.email} onChange={handleChange} required placeholder='Enter your email'/>
-                </div>
-                <div>
-                    <label htmlFor="phone">Phone:</label>
-                    <input className='form-control' type="tel" name="phone" value={guestInfo.phone} onChange={handleChange} required placeholder='Enter your phone number'/>
-                </div>
-                <button type="submit" className='btn btn-primary w-1'>Confirm Booking</button>
-            </form> 
         </div>
     </div>
     );
