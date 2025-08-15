@@ -15,6 +15,7 @@ import ViewGuestRes from './components/ViewGuestReservation';
 import AdminLogin from './components/AdminLogin';
 // Added for admin dashboard functionality
 import AdminDashboard from './components/AdminDashboard';
+import ModifyRes from './components/ModifyRes';
 
 function AppContent() {
     const [rooms, setRooms] = useState([]); // all rooms fetched from the server
@@ -117,6 +118,7 @@ function AppContent() {
                 <Route path="/view-reservation" element={<ViewReservations />} />
                 <Route path="/confirmation" element={<Confirmation />} />
                 <Route path='/view-guest-reservation' element={<ViewGuestRes />} />
+                <Route path='/modify-reservation' element={<ModifyRes />} />
                 <Route path="/admin-login" element={<AdminLogin />} />
                 {/* Admin dashboard route */}
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />

@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from "react-router-dom"
+import { Navigate, useLocation, useNavigate } from "react-router-dom"
 import { getReservationById, updateReservation } from "../service/ReservationService";
 import { useState, useEffect } from "react";
 import { getRoomByNumber } from "../service/RoomService";
@@ -7,6 +7,7 @@ import { getGuestByEmail } from "../service/GuestService";
 
 export default function ViewGuestRes(){
     const location = useLocation(); 
+    const navigate = useNavigate();
 
     // takes the guest email and resID from ViewReservations page
     const email = location.state.email;
@@ -69,6 +70,9 @@ export default function ViewGuestRes(){
         updateReservation(reservation.reservationId, reservation);
         
     }
+    const handleModify = () => {
+        navigate('/modify-reservation',{ state : {reservation : reservation} });
+    }
 
 
     // loading message before data is loaded
@@ -102,6 +106,7 @@ export default function ViewGuestRes(){
         <div className="content">
             <div className="container  shadow p-4 ">
                 <h2>Guest Reservation Details</h2>
+                <p><strong>Reservation Number:</strong> {reservation.reservationId}</p>
                 <p><strong>Name:</strong> {guest.name}</p>
                 <p><strong>Email:</strong> {reservation.guestEmail}</p>
                 <p><strong>Room Number:</strong> {reservation.roomNumber}</p>
@@ -111,7 +116,7 @@ export default function ViewGuestRes(){
                 <p><strong>Status:</strong> {reservation.status}</p>
 
                 <div className="button-container contianer d-flex gap-4 justify-content-start w-2">
-                    <button className="btn btn-warning">Modify Reservation</button>
+                    <button className="btn btn-warning" onClick={handleModify}>Modify Reservation</button>
                     <button className="btn btn-danger" onClick={handleCancel}>Cancel Reservation</button>
                 </div>
             </div>
