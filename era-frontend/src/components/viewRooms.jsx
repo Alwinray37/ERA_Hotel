@@ -31,7 +31,7 @@ function ViewRooms({ availableRooms, sStart, sEnd }) {
                 </div>
             ))
         ) : (
-        <p>No rooms available.</p>
+        <h2>No rooms available. Please refine your search</h2>
       )}
     </div>
   );
