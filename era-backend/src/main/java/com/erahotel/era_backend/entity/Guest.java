@@ -41,4 +41,7 @@ public class Guest{
      */
     @ElementCollection
     private List<String> guestReservations = new ArrayList<>(); // tracks all reservations for this guest.
+
+    public void setId(long l) {
+    }
 }
