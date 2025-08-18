@@ -11,12 +11,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.;
-
 @ExtendWith((MockitoExtension.class))
 
 
 
-public class GuestServiceImplTest2 {
+public class GuestServiceImplTest {
     @Mock
     GuestRepository guestRepository;
 
@@ -181,6 +180,7 @@ class GuestServiceImplTest {
 */
 
 /* //When I asked Chat/Copliot to generate data for it
+
 package com.erahotel.era_backend.service.impl;
 
 import com.erahotel.era_backend.model.Guest;
