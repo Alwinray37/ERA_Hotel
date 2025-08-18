@@ -1,8 +1,9 @@
 package com.erahotel.era_backend.service.impl;
 
+import com.erahotel.era_backend.dto.GuestDto;
 import com.erahotel.era_backend.entity.Guest;
+import com.erahotel.era_backend.mapper.GuestMapper;
 import com.erahotel.era_backend.repository.GuestRepository;
-import com.erahotel.era_backend.service.GuestService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,81 +11,90 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.junit.jupiter.api.Assertions.;
-@ExtendWith((MockitoExtension.class))
 
+import java.util.Optional;
 
-
+@ExtendWith(MockitoExtension.class)
 public class GuestServiceImplTest {
     @Mock
     GuestRepository guestRepository;
 
-    @InjectMocks Mock
-    GuestService guestService;
+    @Mock
+    GuestMapper guestMapper;
+
+    @InjectMocks
+    GuestServiceImpl guestService;
 
     @Test
     void createGuest() {
-        System.out.println(("Create guest");
+        // Create a GuestDto for input
+        GuestDto guestDto = new GuestDto();
+        guestDto.setName("John Doe");
+        guestDto.setEmail("john@email.com");
+        guestDto.setPhone("888-888-8888");
+
+        // Create a Guest entity for repository
         Guest guest = new Guest();
-        guest.setGuestId(1);
+        guest.setGuestId(1L);
         guest.setName("John Doe");
         guest.setEmail("john@email.com");
-        guest.getPhone("888-888-8888");
+        guest.setPhone("888-888-8888");
+
+        // Mock the mapping and repository save
+        Mockito.when(guestMapper.mapToGuest(guestDto)).thenReturn(guest);
         Mockito.when(guestRepository.save(guest)).thenReturn(guest);
-        Guest createGuest = guestService.createGuest(guest);
-        //Test guest = matched guest
-        Assertions.assertNotNull(createGuest));
-        Assertions.assertEquals(guest.getGuestId(), createGuest.getGuestId());
-        Assertions.assertEquals(guest.getName(), createGuest.getName());
-        Assertions.assertEquals(guest.getEmail(), createGuest.getEmail());
-        Assertions.assertEquals(guest.getPhone(), createGuest.getPhone());
-        Assertions.assertTrue(guest.getGuestId()==1);
+        Mockito.when(guestMapper.mapToGuestDto(guest)).thenReturn(guestDto);
+
+        // Call the service
+        GuestDto createdGuestDto = guestService.createGuest(guestDto);
+
+        // Assertions
+        Assertions.assertNotNull(createdGuestDto);
+        Assertions.assertEquals(guestDto.getName(), createdGuestDto.getName());
+        Assertions.assertEquals(guestDto.getEmail(), createdGuestDto.getEmail());
+        Assertions.assertEquals(guestDto.getPhone(), createdGuestDto.getPhone());
     }
 
     @Test
     void getGuestById() {
-        System.out.println(("get guest id");
         Guest guest = new Guest();
-        guest.setGuestId(1);
+        guest.setGuestId(1L);
         guest.setName("John Doe");
-        Mockito.when(guestRepository.save(guest)).thenReturn(guest);
-        Guest createGuest = guestService.createGuest(guest);
-        //Test guest = matched guest
-        Assertions.assertNotNull(createGuest));
-        Assertions.assertEquals(guest.getGuestId(), createGuest.getGuestId());
-        Assertions.assertEquals(guest.getName(), createGuest.getName());
-        Assertions.assertTrue(guest.getGuestId() == 1);
-    }
 
-    @Test
-    void getAllGuests() {
+        GuestDto guestDto = new GuestDto();
+        guestDto.setGuestId(1L);
+        guestDto.setEmail("john@email.com");
+
+        Mockito.when(guestRepository.findById(1L)).thenReturn(Optional.of(guest));
+
+        Mockito.when(guestRepository.findById(1L)).thenReturn(Optional.of(guest));
+        Mockito.when(guestMapper.mapToGuestDto(guest)).thenReturn(guestDto);
+
+        GuestDto foundGuest = guestService.getGuestById(1L);
+
+        Assertions.assertNotNull(foundGuest);
+        Assertions.assertEquals(guest.getGuestId(), foundGuest.getGuestId());
+        Assertions.assertEquals(guest.getName(), foundGuest.getName());
     }
 
     @Test
     void getGuestByEmail() {
-        System.out.println(("get guest email");
         Guest guest = new Guest();
-        guest.setGuestId(1);
+        guest.setGuestId(1L);
         guest.setEmail("john@email.com");
-        Mockito.when(guestRepository.save(guest)).thenReturn(guest);
-        Guest createGuest = guestService.createGuest(guest);
-        //Test guest = matched guest
-        Assertions.assertNotNull(createGuest));
-        Assertions.assertEquals(guest.getGuestId(), createGuest.getGuestId());
-        Assertions.assertEquals(guest.getEmail(), createGuest.getEmail());
-        Assertions.assertTrue(guest.getGuestId()==1);
-    }
 
-    @Test
-    void updateGuest() {
-    }
+        GuestDto guestDto = new GuestDto();
+        guestDto.setGuestId(1L);
+        guestDto.setEmail("john@email.com");
 
-    @Test
-    void addReservation() {
-    }
+        Mockito.when(guestRepository.findByEmail("john@email.com")).thenReturn(Optional.of(guest));
+        Mockito.when(guestMapper.mapToGuestDto(guest)).thenReturn(guestDto);
 
-    @Test
-    void deleteGuest() {
+        GuestDto foundGuestDto = guestService.getGuestByEmail("john@email.com");
+
+        Assertions.assertNotNull(foundGuestDto);
+        Assertions.assertEquals(guestDto.getGuestId(), foundGuestDto.getGuestId());
+        Assertions.assertEquals(guestDto.getEmail(), foundGuestDto.getEmail());
     }
 }
 

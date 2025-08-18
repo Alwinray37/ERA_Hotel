@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import com.erahotel.era_backend.entity.Room;
 import com.erahotel.era_backend.repository.RoomRepository;
+import org.springframework.context.annotation.Profile;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class EraBackendApplication {
 	 * @return a {@link CommandLineRunner} that seeds the admin data
 	 */
 	@Bean
+	@Profile("!test")
 	public CommandLineRunner initAdmin(AdminRepository adminRepository) {
 		return args -> {
 			String defaultAdminEmail = "alwin@email.com";
@@ -75,6 +77,7 @@ public class EraBackendApplication {
 	 * Initializes Room instances in the database
 	 */
 	@Bean
+	@Profile("!test")
 	public CommandLineRunner initRooms(RoomRepository roomRepository) {
 		return args -> {
 			Room[] starterRooms = new Room[] {
