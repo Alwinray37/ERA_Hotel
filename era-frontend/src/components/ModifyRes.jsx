@@ -16,7 +16,10 @@ export default function ModifyRes() {
         {   name: "",
         email: ""   }  
     );
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
+    // presetting the guest form data from viewGuestRes component
     useEffect(() => {
         if (guest) {
             setFormData({ name: guest.name, email: guest.email });
@@ -33,15 +36,17 @@ export default function ModifyRes() {
     }, [reservation?.guestEmail]);
     console.log(guest);
 
-    // 
+    // handle when user submits form 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(''); // reset any previous errs
+        setSuccess('');
 
         // If the email is being changed, check if it already exists
         if (formData.email !== guest.email) {
             const existingGuest = await getGuestByEmail(formData.email);
             if (existingGuest && existingGuest.guestId !== guest.guestId) {
-                alert("A guest with this email already exists. Please use a different email.");
+                setError("Error, this email is already being used. Please choose a different email.");
                 return;
             }
         }
@@ -53,8 +58,8 @@ export default function ModifyRes() {
         const updatedGuest = { ...guest, name: formData.name, email: formData.email };
         await updateGuest(guest.guestId, updatedGuest);
 
-        alert("Changes made!");
-        navigate('/view-guest-reservation', { state: { email: formData.email, resID: reservation.reservationId } });
+        setSuccess("Changes Made!");
+        setTimeout( () => { navigate('/view-guest-reservation', { state: { email: formData.email, resID: reservation.reservationId } }); }, 3000)
     }
 
 
@@ -76,6 +81,7 @@ export default function ModifyRes() {
         <div className="content">
             <div className="container m-auto d-flex flex-column gap-4 align-items-center mt-4">
                 <h2>Modify Guest Reservation</h2>
+                 {success && <div className="alert alert-success">{success}</div>}
                 <form onSubmit = {handleSubmit}  className="form w-50 m-auto d-flex flex-column gap-2 shadow p-4">
                     <label htmlFor="name">Name:</label>
                     <input className="form-control" type="text" name="name" placeholder="Enter new name" value={formData.name} onChange={handleChange}/>
@@ -89,6 +95,7 @@ export default function ModifyRes() {
                     <div><strong>Cost: </strong>{reservation.totalCost}</div>
                     <button type="submit" className="btn btn-success">Save Changes</button>
                 </form>
+                {error && <div className="alert alert-danger">{error}</div>}
             </div>
         </div>
     );

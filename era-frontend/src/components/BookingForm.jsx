@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getGuestByEmail, createGuest, updateGuest} from '../service/GuestService';
-import { appendResIdToGuest, appendResIdToRoom, createReservation, updateReservation } from '../service/ReservationService'; // Assuming you have a service to create reservations
-import { set } from 'date-fns';
+import { appendResIdToGuest, appendResIdToRoom, createReservation, updateReservation } from '../service/ReservationService'; 
 import { getRoom, updateRoom } from '../service/RoomService';
+import sendConfirmationEmail from '../service/SendEmail'; 
+
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function BookingForm() {
     const location = useLocation(); // to pull out values (room, searchStart, searchEnd) that were explicitly sent when navigating to this page.
@@ -76,14 +78,14 @@ export default function BookingForm() {
                 guestEmail: guest.email
             };
             const reservation = await createReservation(reservationData);
-            console.log("Reservation Created: ", reservation.reservationId);
+            console.log("Reservation Created: ", reservation);
 
             // Append reservation ID to guest
             const updatedGuest = await appendResIdToGuest(guest.guestId, reservation.reservationId);
             console.log("Updated Guest ResList", updatedGuest);
             
             // update guest to database 
-            const saveGuest = await updateGuest(guest.guestId, updatedGuest); 
+            await updateGuest(guest.guestId, updatedGuest); 
 
             // get room obj
             let resRoom = await getRoom(room.roomId);
@@ -96,15 +98,15 @@ export default function BookingForm() {
 
             await updateRoom(resRoom.roomId, tempRoom);
             
-            // Optionally navigate to a confirmation page
+            // navigate to a confirmation page
             navigate('/confirmation', { state: { guest: updatedGuest, reservation } });
-
-        } catch (error) {
-            console.error('Error during booking', error);
-            alert('Error during booking. Please try again.');
-        }
+            // function to send confirmation email to guests
+            await sendConfirmationEmail(guestInfo, reservation);
+        }catch (error) {
+            console.error("Error during booking process:", error);
+            alert("An error occurred while processing your booking. Please try again.");
+        };
     };
-
     // handle changes in form inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
