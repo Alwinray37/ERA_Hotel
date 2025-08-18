@@ -1,8 +1,5 @@
-// src/test/java/com/erahotel/era_backend/utils/ReservationIdGeneratorTest.java
+package com.erahotel.era_backend.utils;
 
-package com.erahotel.era_backend.service.impl;
-
-import com.erahotel.era_backend.utils.ReservationIdGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
