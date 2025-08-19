@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 /**
+ *  This is the Guest Controller
  * REST controller for managing guest-related operations in the system
  * privides endpoints for creating, retrieving, updating, and deleting guest records, as well as appending reservation ID's to guests.
  *
