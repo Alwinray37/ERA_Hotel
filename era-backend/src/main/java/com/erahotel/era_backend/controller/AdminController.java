@@ -1,7 +1,6 @@
 package com.erahotel.era_backend.controller;
 
 import com.erahotel.era_backend.dto.AdminDto;
-import com.erahotel.era_backend.dto.AdminReservationSummaryDTO; // added for the dashboard
 import com.erahotel.era_backend.repository.ReservationRepository; // added for the dashboard
 import com.erahotel.era_backend.service.AdminService;
 import lombok.AllArgsConstructor;
@@ -47,11 +46,4 @@ public class AdminController {
         List<AdminDto> admins = adminService.getAllAdmins();
         return ResponseEntity.ok(admins);
     }
-
-    // NEW: Get admin reservation summary for dashboard
-    @GetMapping("/reservations/summary")
-    public List<AdminReservationSummaryDTO> getAdminReservationSummary() {
-        return reservationRepository.findAdminReservationSummaries();
-    }
-
 }
